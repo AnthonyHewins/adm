@@ -18,8 +18,7 @@ export function MenuBar(props) {
                  to='/'
                  name='home'
                  className='slimjoe' />
-      <Menu.Item exact
-                 as={NavLink}
+      <Menu.Item as={NavLink}
                  to='/tools'
                  name='tools'
                  className='slimjoe' />

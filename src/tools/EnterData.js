@@ -1,7 +1,7 @@
 import React from 'react';
 import {Segment, Icon, Input, Grid, Button} from 'semantic-ui-react';
 
-const DIM_KEYS = ['x', 'y', 'z', 't'];
+export const DIM_KEYS = ['x', 'y', 'z', 't'];
 const defaultData = [
   {x: undefined, y: undefined, z: undefined, t: undefined},
 ];
@@ -68,15 +68,13 @@ export function EnterData(props) {
         <Grid.Column>
           <IncrementDecrement
             title="Points"
-            increment={() => {
-              props.setData(props.data.concat(
-                [{x: undefined, y: undefined, z: undefined, t: undefined}]
-              ));
-            }}
+            increment={() => props.setData(props.data.concat(
+              [{x: undefined, y: undefined, z: undefined, t: undefined}]
+            ))}
             decrement={() => props.setData(props.data.slice(0, props.data.length - 1))}
-            disableInc={props.data.length > 50}
-            disableDec={props.data.length < 2}
-          />{' '}
+            disableInc={props.data.length >= props.maxPoints}
+            disableDec={props.data.length <= props.minPoints}
+          />
         </Grid.Column>
         <Grid.Column>
           <IncrementDecrement
@@ -85,20 +83,20 @@ export function EnterData(props) {
             decrement={() => setDim(dim - 1)}
             disableInc={dim >= props.maxDim}
             disableDec={dim <= props.minDim}
-          />{' '}
+          />
         </Grid.Column>
       </Grid.Row>
-      {props.action != undefined && <Grid.Row columns='equal'>
-          <Grid.Column>
-            <Button primary animated fluid onClick={props.action}>
-              <Button.Content hidden><Icon name='right arrow'/></Button.Content>
-              <Button.Content visible>
-                Submit
-              </Button.Content>
-            </Button>
-          </Grid.Column>
-        </Grid.Row>}
       <Grid.Row columns='equal'>
+        {props.action != undefined && <Grid.Column>
+                                      <Button primary animated fluid onClick={props.action}>
+                                        <Button.Content hidden>
+                                          <Icon name='right arrow'/>
+                                        </Button.Content>
+                                        <Button.Content visible>
+                                          Submit
+                                        </Button.Content>
+                                      </Button>
+                                    </Grid.Column>}
         <Grid.Column>
           <Button negative fluid animated onClick={() => {
             props.setData(defaultData);
@@ -106,7 +104,7 @@ export function EnterData(props) {
           }}>
             <Button.Content hidden><Icon name='close'/></Button.Content>
             <Button.Content visible>
-              Clear All
+              Reset
             </Button.Content>
           </Button>
         </Grid.Column>
@@ -135,6 +133,8 @@ EnterData.defaultProps = {
   dim: 2,
   maxDim: 4,
   minDim: 2,
+  maxPoints: 100,
+  minPoints: 1,
   data: defaultData,
 
   setData: (data) => null,
