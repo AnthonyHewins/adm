@@ -1,18 +1,14 @@
 import React from 'react';
-import {StrongHeader} from './StrongHeader';
 import {Link} from 'react-router-dom';
-import {BlockMath} from 'react-katex';
 import {
+  Line,
   LineChart,
   ScatterChart,
   CartesianGrid,
   XAxis,
   YAxis,
   ZAxis,
-  Tooltip,
-  Legend,
   Scatter,
-  Line,
 } from 'recharts';
 import {
   Container,
@@ -24,8 +20,8 @@ export function Tools(props) {
   let svcClass1 = [], svcClass2 = [], svcClass3 = [];
   let random = [], engineered = [];
   let distroEstimator = [];
+
   for (let i = 1; i < 50; i++) {
-    let avg = 0;
     if (i < 79) {
       distroEstimator.push({x: i, y: (Math.random() * 5) % 5});
     } else if (i < 89) {
@@ -61,16 +57,16 @@ export function Tools(props) {
   }
 
   const Tool = (props) => (
-    <Grid.Row as={Link} to={props.link} verticalAlign='middle' textAlign='center' columns={2}>
-      <Grid.Column>
+    <Grid.Row as={Link} to={props.link} verticalAlign='middle' columns={2}>
+      <Grid.Column floated='left'>
         {props.children}
       </Grid.Column>
-      <Grid.Column>
+      <Grid.Column textAlign='center'>
         <Header>
-          <Header.Content className="hugeheader-mobile">
+          <Header.Content className="weak">
             {props.name}
           </Header.Content>
-          <Header.Subheader className='hugeheader-mobile'>
+          <Header.Subheader className='slimjoe'>
             Click here
           </Header.Subheader>
         </Header>
@@ -80,28 +76,25 @@ export function Tools(props) {
 
   return (
     <>
-      <div style={{marginTop: 40, marginBottom: 40}}>
-        <StrongHeader>
+      <Header as="h1" textAlign='center'>
+        <Header.Content className='strong'>
           Toolset
-        </StrongHeader>
-      </div>
+        </Header.Content>
+      </Header>
 
       <Container>
-        <Grid stackable>
+        <Grid divided='vertically' stackable>
 
           <Tool name="Polynomial regression" link='/tools/poly-reg'>
-            <ScatterChart width={350} height={250}>
-              <CartesianGrid strokeDasharray="3 3" />
-
-              <XAxis dataKey="x" name="stature" unit="g" />
-              <YAxis dataKey="y" name="weight" unit="ppm" />
-
-              <Scatter name="Samples"  data={distroEstimator} fill="hsl(0, 100%, 35%)" />
-            </ScatterChart>
+            <LineChart width={300} height={250} data={distroEstimator}>
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Line type="monotone" dataKey="y" stroke="#82ca9d" />
+            </LineChart>
           </Tool>
 
           <Tool link='/tools/feature-engineering' name='Feature engineering'>
-            <ScatterChart width={350} height={250}>
+            <ScatterChart width={300} height={250}>
               <CartesianGrid strokeDasharray="3 3" />
 
               <XAxis type="number" dataKey="x" name="displacement" unit="N" />
@@ -119,17 +112,17 @@ export function Tools(props) {
 }
 
 /*
-            <Tool link='/tools/svc' name='Support vector classifier'>
-            <ScatterChart width={350} height={250}>
-              <CartesianGrid strokeDasharray="3 3" />
+  <Tool link='/tools/svc' name='Support vector classifier'>
+  <ScatterChart width={350} height={250}>
+  <CartesianGrid strokeDasharray="3 3" />
 
-              <XAxis type="number" dataKey="x" name="displacement" unit="cm" />
-              <YAxis type="number" dataKey="y" name="mass" unit="kg" />
-              <ZAxis type="number" dataKey="z" name="type" unit="class" />
+  <XAxis type="number" dataKey="x" name="displacement" unit="cm" />
+  <YAxis type="number" dataKey="y" name="mass" unit="kg" />
+  <ZAxis type="number" dataKey="z" name="type" unit="class" />
 
-              <Scatter name="Millenial" data={svcClass1} fill="hsl(240, 100%, 75%)" shape="triangle"/>
-              <Scatter name="Boomer"    data={svcClass2} fill="hsl(240, 100%, 50%)" shape="square"/>
-              <Scatter name="Gen Z"     data={svcClass3} fill="hsl(240, 100%, 25%)" shape="cross"/>
-            </ScatterChart>
-          </Tool>
- */
+  <Scatter name="Millenial" data={svcClass1} fill="hsl(240, 100%, 75%)" shape="triangle"/>
+  <Scatter name="Boomer"    data={svcClass2} fill="hsl(240, 100%, 50%)" shape="square"/>
+  <Scatter name="Gen Z"     data={svcClass3} fill="hsl(240, 100%, 25%)" shape="cross"/>
+  </ScatterChart>
+  </Tool>
+*/

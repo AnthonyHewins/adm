@@ -1,6 +1,5 @@
 import React from 'react';
-import {Container, Menu} from 'semantic-ui-react';
-import {StrongHeader} from '../StrongHeader';
+import {Header, Container, Menu} from 'semantic-ui-react';
 
 export function ToolPage(props) {
   const [active, setActive] = React.useState(props.active);
@@ -14,11 +13,11 @@ export function ToolPage(props) {
 
   return (
     <>
-      <div style={{marginTop: 40, marginBottom: 40}}>
-        <StrongHeader>
+      <Header as="h1" textAlign='center'>
+        <Header.Content className='strong'>
           {props.name}
-        </StrongHeader>
-      </div>
+        </Header.Content>
+      </Header>
       <Container>
         <Menu secondary>
           {menu}

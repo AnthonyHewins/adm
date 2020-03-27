@@ -1,14 +1,13 @@
 import React from 'react';
-import {Table, Placeholder, Icon, Header, Loader} from 'semantic-ui-react';
+import {Table, Header} from 'semantic-ui-react';
 import Highlight from 'react-highlight';
-import {InlineMath} from 'react-katex';
 import 'highlight.js/styles/solarized-dark.css';
 
 export const FeatureEngineeringApi = props => {
   return (
     <>
       <Header>
-        <Header.Content className="hugeheader-mobile">
+        <Header.Content>
           <pre>POST {props.endpoint}</pre>
         </Header.Content>
       </Header>
@@ -18,12 +17,12 @@ export const FeatureEngineeringApi = props => {
       </p>
 
       <Header>
-        <Header.Content className="hugeheader-mobile">
+        <Header.Content className="mid">
           Request
         </Header.Content>
       </Header>
 
-      <p className="hugeheader-mobile">
+      <p className="weak">
         Headers
       </p>
 
@@ -36,7 +35,7 @@ export const FeatureEngineeringApi = props => {
         </Table.Body>
       </Table>
 
-      <p className="hugeheader-mobile">
+      <p className="weak">
         Payload
       </p>
 
@@ -76,12 +75,12 @@ export const FeatureEngineeringApi = props => {
       </Table>
 
       <Header>
-        <Header.Content className="hugeheader-mobile">
+        <Header.Content className="mid">
           Response
         </Header.Content>
       </Header>
 
-      <p className="hugeheader-mobile">
+      <p className="weak">
         HTTP codes
       </p>
 
@@ -116,7 +115,7 @@ export const FeatureEngineeringApi = props => {
         </Table.Body>
       </Table>
 
-      <p className="hugeheader-mobile">
+      <p className="weak">
         Payload
       </p>
 
@@ -155,7 +154,7 @@ export const FeatureEngineeringApi = props => {
             <Table.Cell><pre>string</pre></Table.Cell>
             <Table.Cell>Shorthand description for switch cases</Table.Cell>
             <Table.Cell>
-              <pre>error &isin; {"\{'param', 'length-mismatch', 'cmd', 'length', 'server'\}"}</pre>
+              <pre>error &isin; {"{'param', 'length-mismatch', 'cmd', 'length', 'server'}"}</pre>
             </Table.Cell>
           </Table.Row>
           <Table.Row>

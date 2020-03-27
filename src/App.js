@@ -1,16 +1,16 @@
 import React from 'react';
-import {Header, Container} from 'semantic-ui-react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 
 import {Home} from './Home';
 import {MenuBar} from './MenuBar';
 import {Footer} from './Footer';
 import {Tools} from './Tools';
+import {Contact} from './Contact';
+import {Anthony} from './contact/Anthony';
 import {ToolPage} from './tools/ToolPage';
 
 import {PolynomialRegressionTool} from './tools/poly-reg/PolynomialRegressionTool';
@@ -46,6 +46,12 @@ export default function App(props) {
                              <PolynomialRegressionApi   endpoint={props.polyregEndpoint}/>,
                              <PolynomialRegressionAbout endpoint={props.polyregEndpoint}/>
                          ]}/>
+             </Route>
+             <Route path="/contact/anthony">
+               <Anthony />
+             </Route>
+             <Route path="/contact">
+               <Contact />
              </Route>
              <Route path="/tools">
                <Tools />

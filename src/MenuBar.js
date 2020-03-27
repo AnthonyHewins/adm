@@ -16,22 +16,16 @@ export function MenuBar(props) {
       <Menu.Item exact
                  as={NavLink}
                  to='/'
-                 name='home'
-                 className='slimjoe' />
+                 name='&Lambda;'
+                 className='lambda' />
       <Menu.Item as={NavLink}
                  to='/tools'
                  name='tools'
                  className='slimjoe' />
-      <Menu.Item exact
-                 as={NavLink}
+      <Menu.Item as={NavLink}
                  to='/contact'
                  name='contact'
                  className='slimjoe' />
-
-      <Menu.Menu position='right'>
-        <Menu.Item className='slimjoe'
-                   name={props.loggedin ? 'logout' : 'login'} />
-      </Menu.Menu>
 
     </Menu>
   );

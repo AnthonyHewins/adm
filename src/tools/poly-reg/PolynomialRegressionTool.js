@@ -1,5 +1,5 @@
 import React from 'react';
-import {Menu, Popup, Button, Loader, Icon, Header, Message, Input, Container, Segment, Grid,} from 'semantic-ui-react';
+import {Popup, Button, Message, Grid,} from 'semantic-ui-react';
 import { InlineMath } from 'react-katex';
 import {EnterData} from '../EnterData';
 import {Graph} from '../Graph';
@@ -34,7 +34,7 @@ export const PolynomialRegressionTool = props => {
         })
             .then(r => r.json())
             .then(r => {
-                if (r.coef != undefined) {
+                if (r.coef !== undefined) {
                     // Round away super small numbers
                     for (let i = 0; i < r.coef.length; i++) {
                         if (Math.abs(r.coef[i]) < 0.0001)
@@ -70,7 +70,7 @@ export const PolynomialRegressionTool = props => {
                     setError(r.message);
                 }
             })
-            .catch(r => setError(r));
+            .catch(r => setError(r.toString()));
     };
 
     return (
@@ -78,9 +78,9 @@ export const PolynomialRegressionTool = props => {
           <Grid.Row>
             <Grid.Column>
               {error && <Message negative>
-                  <Message.Header>Error:</Message.Header>
-                  {error}
-                </Message>}
+                          <Message.Header>Error:</Message.Header>
+                          {error}
+                        </Message>}
             </Grid.Column>
           </Grid.Row>
           <Grid.Row columns='equal'>
@@ -96,8 +96,8 @@ export const PolynomialRegressionTool = props => {
                     The max allowed is {props.maxDeg}.
                   </p>
                 </Popup>
-                <Button disabled={deg > props.maxDeg} icon="plus"  onClick={() => setDeg(deg + 1)} />
-                <Button disabled={deg < 1}            icon="minus" onClick={() => setDeg(deg - 1)} />
+                <Button disabled={deg >= props.maxDeg} icon="plus"  onClick={() => setDeg(deg + 1)} />
+                <Button disabled={deg <= 0}           icon="minus" onClick={() => setDeg(deg - 1)} />
               </Button.Group>{" "}
               {graph}
               <PolynomialKatex coef={coef} />
@@ -114,6 +114,5 @@ PolynomialRegressionTool.defaultProps = {
     deg: 2,
     maxDeg: 5,
     decimalPlaces: 3,
-    data: [{x: undefined, y: undefined}],
     endpoint: "/api/tools/poly-reg",
 };
