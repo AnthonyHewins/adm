@@ -1,86 +1,88 @@
 import React from 'react';
+import {ServerError} from '../../api/core'
+import {polyreg} from '../../api/tools/polyreg'
+import {Matrix} from '../../api/tools/matrix'
 import {Popup, Button, Message, Grid,} from 'semantic-ui-react';
 import { InlineMath } from 'react-katex';
 import {EnterData} from '../EnterData';
 import {Graph} from '../Graph';
 import {PolynomialKatex} from './PolynomialKatex';
 
-export const PolynomialRegressionTool = props => {
-    const [error, setError] = React.useState();
-    const [deg, setDeg]     = React.useState(props.deg);
-    const [coef, setCoef]   = React.useState(props.coef);
-    const [graph, setGraph] = React.useState(<Graph/>);
-    const [data, setData]   = React.useState(props.data);
+export interface PolynomialRegressionToolProps {
+    endpoint?:      string,
 
-    const apiReq = () => {
-        let req = {x: [], y: [], maxDeg: deg};
-        for (let i = 0; i < data.length; i++) {
-            const coordinate = data[i];
-            const xCoordinate = coordinate.x;
-            const yCoordinate = coordinate.y;
+    degree?:        number,
+    maxDeg?:        number,
+    decimalPlaces?: number,
+    coefficient?:   number[],
+    data?:          string[][],
 
-            if (isNaN(xCoordinate) || isNaN(yCoordinate)) { continue; }
+    message?:       React.ReactNode,
+    graph?:         React.ReactNode,
+}
 
-            req.x.push(Number(xCoordinate));
-            req.y.push(Number(yCoordinate));
+interface Regression {
+    graph: React.ReactNode,
+    coef:  number[],
+    err?:  React.ReactNode,
+}
+
+export function PolynomialRegressionTool({
+    endpoint      =  "/api/tools/poly-reg",
+    degree        =  2,
+    maxDeg        =  5,
+    decimalPlaces =  3,
+    coefficient   =  [],
+    data          =  undefined,
+    message       =  undefined,
+    graph         =  <Graph/>,
+}: PolynomialRegressionToolProps) {
+    const [deg, setDeg]           = React.useState(degree);
+    const [input, setInput]       = React.useState(data);
+    const [polyData, setPolyData] = React.useState({graph: graph, coef: coefficient, err: message} as Regression)
+
+    const onClick = (m: Matrix) => {
+        if (m.length < 2) {
+            setPolyData({err: (
+                <Message negative>
+                    <Message.Header>Error:</Message.Header>
+                    Give at least 2 points for regression.
+                </Message>
+            )} as Regression)
+            return
+        } else if (m.dim !== 2) {
+            setPolyData({err: (
+                <Message negative>
+                    <Message.Header>Error:</Message.Header>
+                    Regression requires dimension 2 for this tool to work
+                </Message>
+            )} as Regression)
+            return
         }
 
-        fetch(props.endpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(req),
-        })
-            .then(r => r.json())
-            .then(r => {
-                if (r.coef !== undefined) {
-                    // Round away super small numbers
-                    for (let i = 0; i < r.coef.length; i++) {
-                        if (Math.abs(r.coef[i]) < 0.0001)
-                            r.coef[i] = null;
+        const onSuccess = (coef: number[]) => setPolyData({
+                graph: <Graph fn={(x: number) => {
+                    let y = 0;
+                    for (let j = 0; j < coef.length; j++) {
+                        if (coef[j] != null)
+                            y += coef[j] * Math.pow(x, j);
                     }
 
-                    const newFn = x => {
-                        let y = 0;
-                        for (let j = 0; j < r.coef.length; j++) {
-                            if (r.coef[j] != null)
-                                y += r.coef[j] * Math.pow(x, j);
-                        }
-                        return y;
-                    };
+                    return y;
+                }} />,
+                coef: coef,
+            } as Regression)
 
-                    setCoef(r.coef);
-                    setError(null);
-                    setGraph(<Graph fn={newFn} />);
-                } else if (r.message == undefined) {
-                    setError("Internal server error");
-                } else if (/near-singular/.test(r.message)) {
-                    setError(
-                        <>
-                          <p>
-                            The data you provided is close to being a singular matrix. Make sure there are no duplicate x values, or add more data.
-                          </p>
-                          <p>
-                            The server response: {r.message}
-                          </p>
-                        </>
-                    );
-                } else {
-                    setError(r.message);
-                }
-            })
-            .catch(r => setError(r.toString()));
+        const onError = (error: ServerError) => setPolyData({err: error.toMessage()} as Regression)
+
+        polyreg(m, deg, onSuccess, onError, decimalPlaces, endpoint)
     };
 
     return (
         <Grid stackable>
           <Grid.Row>
             <Grid.Column>
-              {error && <Message negative>
-                          <Message.Header>Error:</Message.Header>
-                          {error}
-                        </Message>}
+              {polyData.err}
             </Grid.Column>
           </Grid.Row>
           <Grid.Row columns='equal'>
@@ -89,30 +91,23 @@ export const PolynomialRegressionTool = props => {
                 <Popup trigger={<Button>Polynomial degree: {deg}</Button>}>
                   <p>
                     Sets the degree of the polynomial that will fit your data points.
-                    E.g. <InlineMath>{"3"}</InlineMath> will fit your data to <InlineMath>{"ax^3+bx^2+cx+d"}</InlineMath>.{" "}
-                    <InlineMath>{"0"}</InlineMath> will try to fit to a constant, but that probably isn't helpful.
+                    E.g. <InlineMath>3</InlineMath> will fit your data to <InlineMath>{"ax^3+bx^2+cx+d"}</InlineMath>.{" "}
+                    <InlineMath>0</InlineMath> will attempt to fit to a constant, if you desire it.
                   </p>
                   <p>
-                    The max allowed is {props.maxDeg}.
+                    The max allowed is {maxDeg}.
                   </p>
                 </Popup>
-                <Button disabled={deg >= props.maxDeg} icon="plus"  onClick={() => setDeg(deg + 1)} />
-                <Button disabled={deg <= 0}           icon="minus" onClick={() => setDeg(deg - 1)} />
+                <Button disabled={deg >= maxDeg} icon="plus"  onClick={() => setDeg(deg + 1)} />
+                <Button disabled={deg <= 0}      icon="minus" onClick={() => setDeg(deg - 1)} />
               </Button.Group>{" "}
-              {graph}
-              <PolynomialKatex coef={coef} />
+              {polyData.graph || <Graph />}
+              <PolynomialKatex coef={polyData.coef} />
             </Grid.Column>
             <Grid.Column>
-              <EnterData data={data} setData={setData} action={apiReq} maxDim={2}/>
+              <EnterData data={input} action={onClick} maxDim={2} minDim={2} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
     );
-};
-
-PolynomialRegressionTool.defaultProps = {
-    deg: 2,
-    maxDeg: 5,
-    decimalPlaces: 3,
-    endpoint: "/api/tools/poly-reg",
 };

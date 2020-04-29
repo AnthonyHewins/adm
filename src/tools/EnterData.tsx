@@ -1,29 +1,6 @@
 import React from 'react';
 import {Popup, Segment, Icon, Input, Grid, Button} from 'semantic-ui-react';
-
-export const DIM_KEYS = ['x', 'y', 'z', 't'];
-export enum DimKeys {
-    x = 'x',
-    y = 'y',
-    z = 'z',
-    t = 't',
-}
-
-const defaultData: {[key:string]:string}[] = [
-  {x: "", y: "", z: "", t: ""},
-];
-
-export interface EnterDataProps {
-  dimensions?: number,
-  maxDim?:     number,
-  minDim?:     number,
-  maxPoints?:  number,
-  minPoints?:  number,
-  data?:       vector[],
-
-  setData?: (matrix: vector[]) => void,
-  action?: () => void,
-};
+import {Matrix} from '../api/tools/matrix'
 
 interface IncrementDecrementProps {
     title:   string,
@@ -40,55 +17,113 @@ const IncrementDecrement = (props: IncrementDecrementProps) => (
         <Popup trigger={<Button>{props.title}</Button>}>
             {props.tooltip}
         </Popup>
-        <Button disabled={props.disableInc} onClick={props.increment}
-                icon='plus' />
-        <Button disabled={props.disableDec} onClick={props.decrement}
-                icon='minus' />
+        <Button disabled={props.disableInc} onClick={props.increment} icon='plus' />
+        <Button disabled={props.disableDec} onClick={props.decrement} icon='minus' />
     </Button.Group>
 );
 
-export function EnterData({dimensions = 2, maxDim = 4, minDim = 1, maxPoints = 100, minPoints = 1, data = defaultData, setData = (_) => null, action = () => null}: EnterDataProps) {
-    const [dim, setDim] = React.useState(dimensions);
+export interface EnterDataProps {
+    dimensions?: number,
+    maxDim?:     number,
+    minDim?:     number,
+    maxPoints?:  number,
+    minPoints?:  number,
+
+    data?:       (undefined | string)[][] | undefined,
+    action?:     (m: Matrix) => void,
+};
+
+export function EnterData({
+    dimensions = 2,
+    minDim     = 1,
+    maxDim     = 4,
+    minPoints  = 1,
+    maxPoints  = 100,
+
+    data       = [[undefined, undefined]],
+    action     = (_: Matrix)  => null,
+}: EnterDataProps) {
+    const [dim, setDim]                 = React.useState(dimensions);
+    const [currentData, setCurrentData] = React.useState(data)
+
+    let needsStateUpdate = false
+    const clone = currentData.map(row => {
+        if (row.length === dim)
+            return row
+
+        needsStateUpdate = true
+        if (row.length < dim)
+            return row.concat(new Array(dim - row.length).fill(undefined))
+        else
+            return row.slice(0, dim)
+    })
+
+    if (needsStateUpdate) { setCurrentData(clone) }
 
     let formFields = [];
-    let accessibleDims = DIM_KEYS.slice(0, dim);
+    let hasErrors = false
 
-    for (let i = 0; i < data.length; i++) {
-        const pt: vector = data[i];
+    for (let i = 0; i < currentData.length; i++) {
+        let pt: string[] = currentData[i];
+
+        let cols = []
+        for (let j = 0; j < pt.length; j++) {
+            let current: string | undefined = pt[j];
+            const err = current !== undefined && (isNaN(Number(current)) || current === '')
+            hasErrors = hasErrors || err
+
+            cols.push(
+                <Grid.Column key={j}>
+                    <Input
+                        fluid
+                        placeholder={`(${i}, ${j})`}
+                        value={current || ''}
+                        error={err}
+                        onChange={e => {
+                            const clone = currentData.slice(0)
+                            clone[i][j] = e.target.value
+                            setCurrentData(clone)
+                        }}
+                    />
+                </Grid.Column>
+            );
+        }
 
         formFields.push(
             <Grid.Row key={i} columns='equal'>
-            {accessibleDims.map(key => {
-                let current = pt[key];
-
-                return (
-                    <Grid.Column key={key}>
-                    <Input
-                    fluid
-                    placeholder={`${key}${i}`}
-                    value={current || ''}
-                    error={current !== undefined && isNaN(current)}
-                    onChange={e => {
-                        const clone = data.slice(0);
-                        pt[key] = e.target.value;
-                        clone[i] = pt;
-                        setData(clone);
-                    }}
+                {cols}
+                <Grid.Column>
+                    <Button
+                        negative
+                        floated='right'
+                        disabled={currentData.length <= 1}
+                        icon="close"
+                        onClick={() => setCurrentData(currentData.slice(0, i).concat( currentData.slice(i + 1) ))}
                     />
-            </Grid.Column>
-                );
-            })}
-            <Grid.Column>
-            <Button
-            negative
-            floated='right'
-            disabled={data.length <= 1}
-            icon="close"
-            onClick={() => setData(data.slice(0, i).concat( data.slice(i + 1) ))}
-            />
-                    </Grid.Column>
-      </Grid.Row>
+                </Grid.Column>
+            </Grid.Row>
         );
+    }
+
+    const onClick = () => {
+        const matrix = currentData.reduce((filtered: number[][], current: string[] | undefined[]) => {
+            let row = []
+            for (let i = 0; i < current.length; i++) {
+                if (current[i] === "")
+                    return filtered
+
+                const asNum = Number(current[i])
+                if (isNaN(asNum))
+                    return filtered
+
+                row.push(asNum)
+            }
+
+            filtered.push(row)
+            return filtered
+        }, [])
+
+        action(new Matrix(matrix))
     }
 
     const controls = (
@@ -98,12 +133,10 @@ export function EnterData({dimensions = 2, maxDim = 4, minDim = 1, maxPoints = 1
                     <IncrementDecrement
                         title="Points"
                         tooltip={`Increment/decrement the number of points. Max is ${maxPoints}, min is ${minPoints}.`}
-                        increment={() => setData(data.concat(
-                            [{x: undefined, y: undefined, z: undefined, t: undefined}]
-                        ))}
-                        decrement={() => setData(data.slice(0, data.length - 1))}
-                        disableInc={data.length >= maxPoints}
-                        disableDec={data.length <= minPoints}
+                        increment={() => setCurrentData(currentData.concat([new Array(dim).fill(undefined)]))}
+                        decrement={() => setCurrentData(currentData.slice(0, currentData.length - 1))}
+                        disableInc={currentData.length >= maxPoints}
+                        disableDec={currentData.length <= minPoints}
                     />
                 </Grid.Column>
                 <Grid.Column>
@@ -118,8 +151,8 @@ export function EnterData({dimensions = 2, maxDim = 4, minDim = 1, maxPoints = 1
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row columns='equal'>
-                {action !== undefined && <Grid.Column>
-                    <Button primary animated fluid onClick={action}>
+                <Grid.Column>
+                    <Button primary animated disabled={hasErrors} fluid onClick={onClick}>
                         <Button.Content hidden>
                             <Icon name='arrow right'/>
                         </Button.Content>
@@ -127,12 +160,9 @@ export function EnterData({dimensions = 2, maxDim = 4, minDim = 1, maxPoints = 1
                             Submit
                         </Button.Content>
                     </Button>
-                </Grid.Column>}
+                </Grid.Column>
                 <Grid.Column>
-                    <Button negative fluid animated onClick={() => {
-                        setData(defaultData);
-                        setDim(dim);
-                    }}>
+                    <Button negative fluid animated onClick={() => setCurrentData([new Array(dim).fill(undefined)])}>
                         <Button.Content hidden><Icon name='close'/></Button.Content>
                         <Button.Content visible>
                             Reset

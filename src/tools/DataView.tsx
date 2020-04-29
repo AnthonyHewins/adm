@@ -2,10 +2,16 @@ import React from 'react';
 import {Form, Button, TextArea, Segment, Header, Icon} from 'semantic-ui-react';
 import {CSVLink} from 'react-csv';
 
-export const DataView = props => {
+export interface DataViewProps {
+   data?: number[][]
+}
+
+export function DataView({
+    data = []
+}: DataViewProps) {
     const textRef = React.useRef(null);
 
-    if (props.data == undefined || props.data.length === 0) {
+    if (data.length === 0) {
         return (
             <Segment placeholder>
               <Header icon>
@@ -18,7 +24,7 @@ export const DataView = props => {
         );
     }
 
-    let csv = props.data.map(i => i.map(j => j.toString()).join(',')).join("\r\n");
+    let csv = data.map(i => i.map(j => j.toString()).join(',')).join("\r\n");
 
     return (
         <>
@@ -32,7 +38,7 @@ export const DataView = props => {
                   labelPosition="left" />
           <Button as={CSVLink}
                   filename="feature-scaling.csv"
-                  data={props.data}
+                  data={data}
                   content="Download as CSV"
                   color='green'
                   icon='align justify'

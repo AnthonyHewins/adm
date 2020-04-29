@@ -13,8 +13,15 @@ import {
 import { Label, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import plato from './images/plato.png';
 
-export function Home(props) {
+export interface HomeProps {
+    appName: string,
+}
 
+const defaultProps: HomeProps = {
+    appName: "ARTIFEX DE MACHINA",
+}
+
+export function Home(props = defaultProps) {
   let data = [];
   for (let i = 0; i < 10; i++) {
     data.push({
@@ -27,13 +34,13 @@ export function Home(props) {
 
   return (
     <>
-      <Dimmer.Dimmable blurring active={true}>
+      <Dimmer.Dimmable blurring active="true">
         <Image fluid src={plato} style={{marginTop: -13}}/> {/* to make it line up with the menu */}
 
         <Dimmer active={true}>
           <Header inverted as="h1" textAlign='center'>
             <Header.Content className='showtime'>
-              ARTIFEX DE MACHINA
+                {props.appName}
             </Header.Content>
           </Header>
         </Dimmer>

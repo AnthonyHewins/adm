@@ -30,7 +30,7 @@ export interface AppProps {
     appName: string,
     apiBase: string,
 
-    polyreg:            string,
+    polyReg:            string,
     featureEngineering: string,
     registration:       string,
     acctConfirmation:   string,
@@ -42,7 +42,7 @@ export function App(props: AppProps) {
         return props.apiBase + s
     }
 
-    const polyreg            = appendApiBase(props.polyreg)
+    const polyreg            = appendApiBase(props.polyReg)
     const featureEngineering = appendApiBase(props.featureEngineering)
     const registration       = appendApiBase(props.registration)
     const acctConfirmation   = appendApiBase(props.acctConfirmation)
@@ -81,7 +81,7 @@ export function App(props: AppProps) {
                 asldp
             </Route>
             <Route path="/login">
-                <Login endpoint={login} email={undefined} password={undefined} />
+                <Login endpoint={login} />
             </Route>
             <Route path="/register">
                 <Register endpoint={registration} />
@@ -90,7 +90,7 @@ export function App(props: AppProps) {
                 <Tools />
             </Route>
             <Route path="/">
-                <Home />
+                <Home appName={props.appName} />
             </Route>
         </Switch>
 

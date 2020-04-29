@@ -1,12 +1,14 @@
 import React from 'react';
-import {register} from '../api/register'
+import {register} from '../api/user/register'
 import {Header, Icon, List, Container, Segment, Form} from 'semantic-ui-react';
-import * as yup from 'yup';
+import { ServerError, ServerAffirmative } from '../api/core';
 
-enum ERR {
-    email   = 0x1,
-    pwShort = 0x2,
-    pwMatch = 0x4,
+const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+enum Errors {
+    email   = 1 << 1,
+    pwShort = 1 << 2,
+    pwMatch = 1 << 3,
 };
 
 export interface RegisterProps {
@@ -27,18 +29,22 @@ export function Register({email = "", password = "", passwordConfirm = "", messa
     const [pwConfirm, setPwConfirm] = React.useState(passwordConfirm);
     const [msg, setMsg]             = React.useState(message);
 
-    const emailSchema = yup.string().email().lowercase().required();
-
     const checkErrors = () => (
-        (pw.length < passwordLength      ? ERR.pwShort : 0) |
-        (pw != pwConfirm                 ? ERR.pwMatch : 0) |
-        (!emailSchema.isValidSync(email) ? ERR.email   : 0)
+        (pw.length < passwordLength ? Errors.pwShort : 0) |
+        (pw !== pwConfirm           ? Errors.pwMatch : 0) |
+        (!emailRegex.test(mail)     ? Errors.email   : 0)
     );
 
     let [errors, setErrors] = React.useState(0);
-    React.useEffect(() => setErrors(checkErrors()), [email, pw, pwConfirm]);
+    React.useEffect(() => setErrors(checkErrors()), [mail, pw, pwConfirm]);
 
-    const onClick = () => setMsg( register(email, pw, endpoint).toMessage() )
+    const onClick = () => register(
+        mail,
+        pw,
+        (resp: ServerAffirmative) => setMsg(resp.toMessage()),
+        (err:  ServerError)       => setMsg( err.toMessage()),
+        endpoint,
+    )
 
     return (
         <Container>
@@ -72,15 +78,12 @@ export function Register({email = "", password = "", passwordConfirm = "", messa
                     </Form.Field>
 
                     <List>
-                        <Check err={Boolean(errors & ERR.email)}
-                               name="Email is valid" />
-                        <Check err={Boolean(errors & ERR.pwShort)}
-                               name="Password is long enough" />
-                        <Check err={Boolean(errors & ERR.pwMatch)}
-                               name="Passwords match" />
+                        <Check err={Boolean(errors & Errors.email)}   name="Email is valid" />
+                        <Check err={Boolean(errors & Errors.pwShort)} name="Password is long enough" />
+                        <Check err={Boolean(errors & Errors.pwMatch)} name="Passwords match" />
                     </List>
 
-                    <Form.Button primary type='submit' disabled={errors != 0} onClick={onClick}>
+                    <Form.Button primary type='submit' disabled={errors !== 0} onClick={onClick}>
                         Submit
                     </Form.Button>
                 </Form>
@@ -95,11 +98,7 @@ interface checkProps {
 }
 
 const Check: React.FC<checkProps> = (props) => {
-    let icon;
-    if (props.err)
-        icon = <Icon color='red' name='close'/>;
-    else
-        icon = <Icon color='green' name='check'/>;
+    const icon = props.err ? <Icon color='red' name='close'/> : <Icon color='green' name='check'/>;
 
     return (
         <List.Item>
