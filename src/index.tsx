@@ -5,17 +5,21 @@ import {App} from './App';
 import 'semantic-ui-css/semantic.min.css';
 import * as serviceWorker from './serviceWorker';
 
-const appName:            string = process.env.REACT_APP_APP_NAME            || "Artifex de machina"
-const apiBase:            string = process.env.REACT_APP_API_BASE            || "/api/v1"
-const polyReg:            string = process.env.REACT_APP_POLYREG             || "/poly-reg"
-const featureEngineering: string = process.env.REACT_APP_FEATURE_ENGINEERING || "/feature-engineering"
-const registration:       string = process.env.REACT_APP_REGISTRATION        || "/registration"
-const acctConfirmation:   string = process.env.REACT_APP_ACCT_CONFIRMATION   || "/registration/confirmation"
-const login:              string = process.env.REACT_APP_LOGIN               || "/auth"
+const appName            = process.env.REACT_APP_APP_NAME            || "Artifex de machina"
+
+const apiBase            = process.env.REACT_APP_API_BASE            || "/api/v1"
+
+const polyReg            = process.env.REACT_APP_POLYREG             || "/poly-reg"
+const featureEngineering = process.env.REACT_APP_FEATURE_ENGINEERING || "/feature-engineering"
+const registration       = process.env.REACT_APP_REGISTRATION        || "/registration"
+const acctConfirmation   = process.env.REACT_APP_ACCT_CONFIRMATION   || "/registration/confirmation"
+const login              = process.env.REACT_APP_LOGIN               || "/login"
+const refreshToken       = process.env.REACT_APP_REFRESH_TOKEN       || "/confirm-acct"
 
 const app = <App appName={appName}
                  apiBase={apiBase}
                  polyReg={polyReg}
+                 refreshToken={refreshToken}
                  featureEngineering={featureEngineering}
                  registration={registration}
                  acctConfirmation={acctConfirmation}

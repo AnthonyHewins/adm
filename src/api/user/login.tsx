@@ -1,14 +1,11 @@
-import {apiCall, ServerError} from '../core'
+import {apiCall, AppError} from '../core'
 import { sendCredentials } from './core'
+import { JwtResponse }     from './jwt'
 
-interface JwtResponse {
-    token: string
-}
-
-export function login(email: string, password: string, onSuccess: (jwt: string) => void, onError: (e: ServerError) => void, endpoint = "/api/v1/auth") {
+export function login(email: string, password: string, onSuccess: (jwt: JwtResponse) => void, onError: (e: AppError) => void, endpoint = "/api/v1/auth/login") {
     apiCall(
         sendCredentials(email, password, endpoint),
-        (r: JwtResponse) => onSuccess(r.token),
+        (r: JwtResponse) => onSuccess(r),
         onError,
     )
 }

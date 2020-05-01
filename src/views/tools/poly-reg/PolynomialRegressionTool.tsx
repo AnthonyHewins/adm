@@ -1,12 +1,13 @@
 import React from 'react';
-import {ServerError} from '../../api/core'
-import {polyreg} from '../../api/tools/polyreg'
-import {Matrix} from '../../api/tools/matrix'
-import {Popup, Button, Message, Grid,} from 'semantic-ui-react';
 import { InlineMath } from 'react-katex';
+import {Popup, Button, Message, Grid,} from 'semantic-ui-react';
+
 import {EnterData} from '../EnterData';
 import {Graph} from '../Graph';
 import {PolynomialKatex} from './PolynomialKatex';
+import {AppError} from '../../../api/core'
+import {polyreg} from '../../../api/tools/polyreg'
+import {Matrix} from '../../../api/tools/matrix'
 
 export interface PolynomialRegressionToolProps {
     endpoint?:      string,
@@ -73,7 +74,7 @@ export function PolynomialRegressionTool({
                 coef: coef,
             } as Regression)
 
-        const onError = (error: ServerError) => setPolyData({err: error.toMessage()} as Regression)
+        const onError = (error: AppError) => setPolyData({err: error.toMessage()} as Regression)
 
         polyreg(m, deg, onSuccess, onError, decimalPlaces, endpoint)
     };

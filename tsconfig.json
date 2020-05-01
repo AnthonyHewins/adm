@@ -4,6 +4,7 @@
     "module": "esnext",
     "jsx": "react",
     "strict": false,
+    "outDir": "./dist/",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": [

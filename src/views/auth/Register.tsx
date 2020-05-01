@@ -1,7 +1,7 @@
 import React from 'react';
-import {register} from '../api/user/register'
+import {register} from '../../api/user/register'
 import {Header, Icon, List, Container, Segment, Form} from 'semantic-ui-react';
-import { ServerError, ServerAffirmative } from '../api/core';
+import { AppError, AppAffirmative } from '../../api/core';
 
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
@@ -41,8 +41,8 @@ export function Register({email = "", password = "", passwordConfirm = "", messa
     const onClick = () => register(
         mail,
         pw,
-        (resp: ServerAffirmative) => setMsg(resp.toMessage()),
-        (err:  ServerError)       => setMsg( err.toMessage()),
+        (resp: AppAffirmative) => setMsg(resp.toMessage()),
+        (err:  AppError)       => setMsg( err.toMessage()),
         endpoint,
     )
 

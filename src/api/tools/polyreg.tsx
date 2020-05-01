@@ -1,4 +1,4 @@
-import {apiCall, ServerError} from '../core'
+import {apiCall, AppError} from '../core'
 import {Matrix} from './matrix'
 
 interface Polynomial {
@@ -9,7 +9,7 @@ export function polyreg(
     matrix:           Matrix,
     maxDeg:           number,
     successCallback:  (coef: number[]) => void,
-    errCallback:      (err: ServerError) => void,
+    errCallback:      (err: AppError) => void,
     decimalPlaces   = 3,
     endpoint        = "/api/v1/poly-reg"
 ): void {
@@ -41,12 +41,12 @@ export function polyreg(
 
             successCallback(r.coef)
         },
-        (e: ServerError) => {
+        (e: AppError) => {
             if (/near-singular/.test(e.message)) {
                 e.message = "The data you provided is close to being a singular matrix. Make sure there are no duplicate x values, or add more data."
             }
 
-            errCallback(new ServerError(e.code, e.message))
+            errCallback(new AppError(e.code, e.message))
         }
     )
 }

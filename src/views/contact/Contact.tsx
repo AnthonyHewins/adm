@@ -67,7 +67,7 @@ export const Contact = props => {
         <Table>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell className="slimjoe" colspan={2}>
+              <Table.HeaderCell className="slimjoe" colSpan={2}>
                 <Icon name='mail'/> Emails
               </Table.HeaderCell>
             </Table.Row>
@@ -80,7 +80,7 @@ export const Contact = props => {
         <Table>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell className="slimjoe" colspan={3}>
+              <Table.HeaderCell className="slimjoe" colSpan={3}>
                 <Icon name='github'/> GitHub
               </Table.HeaderCell>
             </Table.Row>

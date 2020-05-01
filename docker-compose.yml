@@ -1,8 +1,17 @@
 version: "3.7"
 
 services:
+  db:
+    image: postgres
+    restart: always
+    expose:
+      - 5432
+    environment:
+      POSTGRES_DB: adm
+      POSTGRES_USER: anthony
+      POSTGRES_PASSWORD: anthony
   react:
-    image: ahewins/adm-server:latest
+    image: ahewins/adm:latest
     restart: always
     ports:
       - 80:80
@@ -16,3 +25,9 @@ services:
     image: ahewins/adm-backend:latest
     expose:
       - 8080
+    volumes:
+      - ./key:/root/key
+      - ./key.pub:/root/key.pub
+      - ./server-config.yml:/root/server-config.yml
+    depends_on:
+      - db

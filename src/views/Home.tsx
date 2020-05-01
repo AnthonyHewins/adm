@@ -11,7 +11,7 @@ import {
   Segment
 } from 'semantic-ui-react';
 import { Label, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
-import plato from './images/plato.png';
+import plato from '../images/plato.png';
 
 export interface HomeProps {
     appName: string,
@@ -35,7 +35,7 @@ export function Home(props = defaultProps) {
   return (
     <>
       <Dimmer.Dimmable blurring active="true">
-        <Image fluid src={plato} style={{marginTop: -13}}/> {/* to make it line up with the menu */}
+        <Image fluid src={plato} style={{marginTop: -13}}/> {/* to make it line up with the menu; there's a gap normally */}
 
         <Dimmer active={true}>
           <Header inverted as="h1" textAlign='center'>

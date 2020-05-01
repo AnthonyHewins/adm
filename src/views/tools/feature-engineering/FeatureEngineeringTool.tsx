@@ -1,7 +1,7 @@
 import React from 'react';
-import {Matrix} from '../../api/tools/matrix'
-import {ServerError} from '../../api/core'
-import {featureEngineering, Modes} from '../../api/tools/featureEngineering'
+import {Matrix} from '../../../api/tools/matrix'
+import {AppError} from '../../../api/core'
+import {featureEngineering, Modes} from '../../../api/tools/featureEngineering'
 import {Grid, Form, Message, Checkbox } from 'semantic-ui-react';
 
 import {EnterData} from '../EnterData';
@@ -46,7 +46,7 @@ export function FeatureEngineeringTool({
             m,
             currentMode,
             (apiResult: number[][]) => setFeData({imputedData: apiResult} as FeData),
-            (err: ServerError)      => setFeData({err: err.toMessage()}   as FeData),
+            (err: AppError)      => setFeData({err: err.toMessage()}   as FeData),
             endpoint
         )
     };

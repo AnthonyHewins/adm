@@ -5,26 +5,33 @@ import {
   Route,
 } from "react-router-dom";
 
-import {Home}     from './Home';
-import {MenuBar}  from './MenuBar';
-import {Footer}   from './Footer';
-import {Tools}    from './Tools';
-import {Contact}  from './Contact';
-import {Anthony}  from './contact/Anthony';
-import {Login}    from './login/Login';
-import {Register} from './login/Register';
-import {ToolPage} from './tools/ToolPage';
+import {fetchJwt} from './api/user/jwt'
 
-import {PolynomialRegressionTool}  from './tools/poly-reg/PolynomialRegressionTool';
-import {PolynomialRegressionApi}   from './tools/poly-reg/PolynomialRegressionApi';
-import {PolynomialRegressionAbout} from './tools/poly-reg/PolynomialRegressionAbout';
+import {Home}             from './views/Home';
+import {MenuBar}          from './views/MenuBar';
+import {Footer}           from './views/Footer';
+import {Contact}          from './views/contact/Contact';
+import {Anthony}          from './views/contact/Anthony';
 
-import {FeatureEngineeringTool}  from './tools/feature-engineering/FeatureEngineeringTool';
-import {FeatureEngineeringApi}   from './tools/feature-engineering/FeatureEngineeringApi';
-import {FeatureEngineeringAbout} from './tools/feature-engineering/FeatureEngineeringAbout';
+import {Fund}             from './views/fund/Fund'
+
+import {Login}            from './views/auth/Login';
+import {Register}         from './views/auth/Register';
+import {AcctConfirmation} from './views/auth/AcctConfirmation'
+
+import {Tools}            from './views/tools/Tools';
+import {ToolPage}         from './views/tools/ToolPage';
+import {PolynomialRegressionTool}  from './views/tools/poly-reg/PolynomialRegressionTool';
+import {PolynomialRegressionApi}   from './views/tools/poly-reg/PolynomialRegressionApi';
+import {PolynomialRegressionAbout} from './views/tools/poly-reg/PolynomialRegressionAbout';
+
+import {FeatureEngineeringTool}  from './views/tools/feature-engineering/FeatureEngineeringTool';
+import {FeatureEngineeringApi}   from './views/tools/feature-engineering/FeatureEngineeringApi';
+import {FeatureEngineeringAbout} from './views/tools/feature-engineering/FeatureEngineeringAbout';
 
 import './fonts/slimjoe.otf';
 import './App.css';
+import { PasswordRecovery } from './views/auth/PasswordRecovery';
 
 export interface AppProps {
     appName: string,
@@ -35,6 +42,7 @@ export interface AppProps {
     registration:       string,
     acctConfirmation:   string,
     login:              string,
+    refreshToken:       string,
 }
 
 export function App(props: AppProps) {
@@ -46,12 +54,17 @@ export function App(props: AppProps) {
     const featureEngineering = appendApiBase(props.featureEngineering)
     const registration       = appendApiBase(props.registration)
     const acctConfirmation   = appendApiBase(props.acctConfirmation)
-    const login              = appendApiBase(props.acctConfirmation)
+    const login              = appendApiBase(props.login)
+
+    const [loggedIn, setLoggedIn] = React.useState(fetchJwt(props.refreshToken) !== null)
 
     return <Router>
-        <MenuBar loggedIn={false} />
+        <MenuBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
 
         <Switch>
+            <Route path="/confirm/:token"
+                   render={(routerProps) => <AcctConfirmation routerProps={routerProps} endpoint={acctConfirmation} />}
+            />
             <Route path="/tools/feature-engineering">
                 <ToolPage name="Feature Engineering"
                           menuItems={["Tool", "API", "How it works"]}
@@ -76,12 +89,11 @@ export function App(props: AppProps) {
             <Route path="/contact">
                 <Contact />
             </Route>
-            <Route path="/acct-confirmation">
-                {/* TODO */}
-                asldp
+            <Route path="/fund">
+                <Fund />
             </Route>
             <Route path="/login">
-                <Login endpoint={login} />
+                <Login endpoint={login} setLoggedIn={setLoggedIn} />
             </Route>
             <Route path="/register">
                 <Register endpoint={registration} />
@@ -89,7 +101,10 @@ export function App(props: AppProps) {
             <Route path="/tools">
                 <Tools />
             </Route>
-            <Route path="/">
+            <Route path="/reset-password">
+                <PasswordRecovery endpoint="/api/v1/auth/reset_password" />
+            </Route>
+            <Route exact path="/">
                 <Home appName={props.appName} />
             </Route>
         </Switch>
@@ -97,17 +112,3 @@ export function App(props: AppProps) {
         <Footer/>
     </Router>;
 }
-
-App.defaultProps = {
-    // Meta
-    appName: "Artifex de machina",
-    apiBase: "/api/v1",
-
-    // Routes
-    polyreg: "/poly-reg",
-    featureEngineering: "/feature-engineering",
-
-    registration: "/registration",
-    acctConfirmation: "/registration/confirmation",
-    login: "/login",
-};

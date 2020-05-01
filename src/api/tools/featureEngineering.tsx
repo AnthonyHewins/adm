@@ -1,5 +1,5 @@
 import {Matrix} from './matrix'
-import {apiCall, ServerError} from '../core'
+import {apiCall, AppError} from '../core'
 
 export enum Modes {
     meanNormalization = 'mean-normalization',
@@ -12,7 +12,7 @@ export function featureEngineering(
     m: Matrix,
     mode: Modes,
     onSuccess: (x: number[][]) => void,
-    onError: (x: ServerError) => void,
+    onError: (x: AppError) => void,
     endpoint = "/api/v1/tools/feature-engineering"
 ) {
     const req: RequestInit = {
