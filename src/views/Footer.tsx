@@ -36,6 +36,10 @@ export function Footer(props) {
         <List>
           {props.links.map(link)}
         </List>
+
+        <i>Of their own motion they entered the conclave of Gods on Olympus</i>
+        <br/>
+        Aristotle
       </Container>
       <br/>
       <br/>
