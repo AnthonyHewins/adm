@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom'
 import {AppError} from '../../api/core'
 import {login} from '../../api/user/login'
 import {JwtResponse} from '../../api/user/jwt'
-import {List, Message, Header, Container, Segment, Form} from 'semantic-ui-react';
+import { List, Message, Header, Container, Segment, Form, Loader} from 'semantic-ui-react';
 
 export interface LoginProps {
     endpoint?: string,
@@ -27,7 +27,16 @@ export function Login({
     const [currentPassword, setCurrentPassword] = React.useState(password)
     const [            msg,             setMsg] = React.useState(message)
 
-    const onClick = () => login(
+    const onClick = () => {
+        setMsg(
+            <Segment>
+                <Loader>
+                    Loading
+                </Loader>
+            </Segment>
+        )
+
+        login(
         currentEmail,
         currentPassword,
         (jwt: JwtResponse) => {
@@ -45,7 +54,8 @@ export function Login({
         },
         (err: AppError) => setMsg(err.toMessage()),
         endpoint,
-    )
+        )
+    }
 
     const alreadyLoggedIn = sessionStorage.getItem("jwt-token") !== null && sessionStorage.getItem("jwt-expiration") !== null
 

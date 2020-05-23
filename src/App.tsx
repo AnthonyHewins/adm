@@ -58,6 +58,8 @@ export function App(props: AppProps) {
     const registration       = appendApiBase(props.registration)
     const acctConfirmation   = appendApiBase(props.acctConfirmation)
     const login              = appendApiBase(props.login)
+    const confirmReset       = appendApiBase(props.confirmReset)
+    const resetPassword      = appendApiBase(props.resetPassword)
 
     const [loggedIn, setLoggedIn] = React.useState(fetchJwt(props.refreshToken) !== null)
 
@@ -105,10 +107,10 @@ export function App(props: AppProps) {
                 <Tools />
             </Route>
             <Route path="/confirm-password-reset">
-                <ConfirmPasswordReset endpoint={props.confirmReset} />
+                <ConfirmPasswordReset endpoint={confirmReset} />
             </Route>
             <Route path="/reset-password">
-                <PasswordRecovery endpoint={props.resetPassword} />
+                <PasswordRecovery endpoint={resetPassword} />
             </Route>
             <Route exact path="/">
                 <Home appName={props.appName} />

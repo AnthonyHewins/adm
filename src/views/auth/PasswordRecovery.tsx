@@ -1,12 +1,11 @@
 import React from 'react';
 import { AppError, AppAffirmative} from '../../api/core'
 import {pwReset} from '../../api/user/pwReset'
-import {JwtResponse} from '../../api/user/jwt'
-import {Message, Header, Container, Segment, Form} from 'semantic-ui-react';
+import { Header, Container, Segment, Form, Loader} from 'semantic-ui-react';
 import { useHistory } from "react-router-dom";
 
 export interface PasswordRecovery {
-    endpoint?: string,
+    endpoint: string,
 
     email?: string,
 
@@ -18,23 +17,31 @@ export interface PasswordRecovery {
 export function PasswordRecovery({
     email    = '',
     message  = undefined,
-    endpoint = "/api/v1/auth/reset_password",
+    endpoint,
 }) {
-    const [   currentEmail,    setCurrentEmail] = React.useState(email)
-    const [resetState, setResetState] = React.useState({msg: message, reset: false})
+    const [currentEmail, setCurrentEmail] = React.useState(email)
+    const [resetState, setResetState] = React.useState(message)
 
     const history = useHistory()
 
-    const onClick = () => pwReset(
-        currentEmail,
-        (_: AppAffirmative) => history.push("/confirm-password-reset"),
-        (err: AppError) => setResetState({msg: err.toMessage(), reset: false}),
-        endpoint,
-    )
+    const onClick = () => {
+        setResetState(
+            <Segment>
+                <Loader>Loading</Loader>
+            </Segment>
+        )
+
+        pwReset(
+            currentEmail,
+            (_: AppAffirmative) => history.push("/confirm-password-reset"),
+            (err: AppError) => setResetState(err.toMessage()),
+            endpoint,
+        )
+    }
 
     return (
         <Container>
-            {resetState.msg}
+            {resetState}
             <Segment padded='very'>
                 <Header>
                     <Header.Content className='slimjoe'>
@@ -50,10 +57,9 @@ export function PasswordRecovery({
                                     onChange={e => setCurrentEmail(e.target.value)} />
                     </Form.Field>
                     <Form.Field>
-                        <Form.Button primary disabled={resetState.reset} className="slimjoe" type='submit' onClick={onClick}>
+                        <Form.Button primary disabled={currentEmail.length <= 0} className="slimjoe" type='submit' onClick={onClick}>
                             Submit
                         </Form.Button>
-                        {resetState.reset && <p>Already logged in.</p>}
                     </Form.Field>
                 </Form>
             </Segment>
