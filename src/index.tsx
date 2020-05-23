@@ -16,12 +16,17 @@ const acctConfirmation   = process.env.REACT_APP_ACCT_CONFIRMATION   || "/regist
 const login              = process.env.REACT_APP_LOGIN               || "/login"
 const refreshToken       = process.env.REACT_APP_REFRESH_TOKEN       || "/confirm-acct"
 
+const resetPassword      = process.env.REACT_APP_PASSWORD_RESET      || "/reset-password"
+const confirmReset       = process.env.REACT_APP_CONFIRM_RESET       || "/confirm-password-reset"
+
 const app = <App appName={appName}
                  apiBase={apiBase}
                  polyReg={polyReg}
                  refreshToken={refreshToken}
                  featureEngineering={featureEngineering}
                  registration={registration}
+                 resetPassword={resetPassword}
+                 confirmReset={confirmReset}
                  acctConfirmation={acctConfirmation}
                  login={login} />
 

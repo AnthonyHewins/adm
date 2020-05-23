@@ -39,7 +39,7 @@ export function Footer(props) {
 
         <i>Of their own motion they entered the conclave of Gods on Olympus</i>
         <br/>
-        Aristotle
+        <div className="slimjoe">Aristotle</div>
       </Container>
       <br/>
       <br/>

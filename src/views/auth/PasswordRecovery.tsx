@@ -3,6 +3,7 @@ import { AppError, AppAffirmative} from '../../api/core'
 import {pwReset} from '../../api/user/pwReset'
 import {JwtResponse} from '../../api/user/jwt'
 import {Message, Header, Container, Segment, Form} from 'semantic-ui-react';
+import { useHistory } from "react-router-dom";
 
 export interface PasswordRecovery {
     endpoint?: string,
@@ -22,14 +23,11 @@ export function PasswordRecovery({
     const [   currentEmail,    setCurrentEmail] = React.useState(email)
     const [resetState, setResetState] = React.useState({msg: message, reset: false})
 
+    const history = useHistory()
+
     const onClick = () => pwReset(
         currentEmail,
-        (ok: AppAffirmative) => {
-            setResetState({
-                msg: ok.toMessage(),
-                reset: true,
-            })
-        },
+        (_: AppAffirmative) => history.push("/confirm-password-reset"),
         (err: AppError) => setResetState({msg: err.toMessage(), reset: false}),
         endpoint,
     )
@@ -40,7 +38,7 @@ export function PasswordRecovery({
             <Segment padded='very'>
                 <Header>
                     <Header.Content className='slimjoe'>
-                        Recover password
+                        Reset password
                     </Header.Content>
                 </Header>
 

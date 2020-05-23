@@ -18,6 +18,8 @@ import {Fund}             from './views/fund/Fund'
 import {Login}            from './views/auth/Login';
 import {Register}         from './views/auth/Register';
 import {AcctConfirmation} from './views/auth/AcctConfirmation'
+import { PasswordRecovery } from './views/auth/PasswordRecovery';
+import ConfirmPasswordReset from './views/auth/ConfirmPasswordReset';
 
 import {Tools}            from './views/tools/Tools';
 import {ToolPage}         from './views/tools/ToolPage';
@@ -31,7 +33,6 @@ import {FeatureEngineeringAbout} from './views/tools/feature-engineering/Feature
 
 import './fonts/slimjoe.otf';
 import './App.css';
-import { PasswordRecovery } from './views/auth/PasswordRecovery';
 
 export interface AppProps {
     appName: string,
@@ -40,6 +41,8 @@ export interface AppProps {
     polyReg:            string,
     featureEngineering: string,
     registration:       string,
+    resetPassword:      string,
+    confirmReset:       string,
     acctConfirmation:   string,
     login:              string,
     refreshToken:       string,
@@ -101,8 +104,11 @@ export function App(props: AppProps) {
             <Route path="/tools">
                 <Tools />
             </Route>
+            <Route path="/confirm-password-reset">
+                <ConfirmPasswordReset endpoint={props.confirmReset} />
+            </Route>
             <Route path="/reset-password">
-                <PasswordRecovery endpoint="/api/v1/auth/reset_password" />
+                <PasswordRecovery endpoint={props.resetPassword} />
             </Route>
             <Route exact path="/">
                 <Home appName={props.appName} />

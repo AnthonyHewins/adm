@@ -1,7 +1,8 @@
 import React from 'react';
 import {register} from '../../api/user/register'
-import {Header, Icon, List, Container, Segment, Form} from 'semantic-ui-react';
+import {Header, List, Container, Segment, Form} from 'semantic-ui-react';
 import { AppError, AppAffirmative } from '../../api/core';
+import Check from '../shared/ErrorCheck';
 
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
@@ -78,34 +79,18 @@ export function Register({email = "", password = "", passwordConfirm = "", messa
                     </Form.Field>
 
                     <List>
-                        <Check err={Boolean(errors & Errors.email)}   name="Email is valid" />
-                        <Check err={Boolean(errors & Errors.pwShort)} name="Password is long enough" />
-                        <Check err={Boolean(errors & Errors.pwMatch)} name="Passwords match" />
+                        <Check err={errors & Errors.email}   name="Email is valid" />
+                        <Check err={errors & Errors.pwShort} name="Password is long enough" />
+                        <Check err={errors & Errors.pwMatch} name="Passwords match" />
                     </List>
 
-                    <Form.Button primary type='submit' disabled={errors !== 0} onClick={onClick}>
-                        Submit
-                    </Form.Button>
+                    <Form.Field>
+                        <Form.Button primary type='submit' disabled={errors !== 0} onClick={onClick}>
+                            Submit
+                        </Form.Button>
+                    </Form.Field>
                 </Form>
             </Segment>
         </Container>
-    );
-};
-
-interface checkProps {
-    err: boolean,
-    name: string,
-}
-
-const Check: React.FC<checkProps> = (props) => {
-    const icon = props.err ? <Icon color='red' name='close'/> : <Icon color='green' name='check'/>;
-
-    return (
-        <List.Item>
-            {icon}
-            <List.Content>
-                {props.name}
-            </List.Content>
-        </List.Item>
     );
 };
