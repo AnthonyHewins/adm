@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppError, AppAffirmative} from '../../api/core'
 import {pwReset} from '../../api/user/pwReset'
-import { Header, Container, Segment, Form, Loader} from 'semantic-ui-react';
+import { Header, Container, Segment, Form, Loader, Dimmer} from 'semantic-ui-react';
 import { useHistory } from "react-router-dom";
 
 export interface PasswordRecovery {
@@ -26,8 +26,10 @@ export function PasswordRecovery({
 
     const onClick = () => {
         setResetState(
-            <Segment>
-                <Loader>Loading</Loader>
+            <Segment padded='very'>
+                <Dimmer active>
+                    <Loader indeterminate>Loading</Loader>
+                </Dimmer>
             </Segment>
         )
 

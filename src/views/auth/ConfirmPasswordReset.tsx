@@ -1,8 +1,9 @@
 import React from 'react'
-import { List, Container, Segment, Form, Header, } from 'semantic-ui-react'
+import { List, Container, Segment, Form, Header, Message, } from 'semantic-ui-react'
 import { confirmPwReset } from '../../api/user/confirmPwReset'
 import { AppAffirmative, AppError } from '../../api/core'
 import ErrorCheck from '../shared/ErrorCheck'
+import { useHistory } from 'react-router-dom'
 
 type ConfirmPasswordResetProps = {
     endpoint: string,
@@ -32,6 +33,7 @@ const ConfirmPasswordReset = ({endpoint, token = "", newPassword = "", newPasswo
         (currentToken.length > 0                          ? 0 : formErrors.noToken)
     )
 
+    const history = useHistory()
     const [errors, setErrors] = React.useState(0)
 
     React.useEffect(() => setErrors(checkErrors()), [currentNewPassword, currentNewPasswordConfirm, currentToken])
@@ -40,7 +42,17 @@ const ConfirmPasswordReset = ({endpoint, token = "", newPassword = "", newPasswo
         confirmPwReset(
             currentToken,
             currentNewPassword,
-            (success: AppAffirmative) => setMsg(success.toMessage()),
+            (_: AppAffirmative) => {
+                setMsg(<Message success>
+                    <Message.Header>Success</Message.Header>
+                    Redirecting you to the login page in a few seconds...
+                </Message>)
+
+                setTimeout(
+                    () => history.push("/login"),
+                    3000,
+                )
+            },
             (err: AppError) => setMsg(err.toMessage()),
             endpoint,
         )

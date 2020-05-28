@@ -57,6 +57,9 @@ export class AppAffirmative implements ApiAffirmative {
     }
 
     toMessage(): any {
-        return <Message success header="Success" message={this.message} />
+        return <Message success>
+            <Message.Header>Success</Message.Header>
+            {this.message}
+        </Message>
     }
 }
