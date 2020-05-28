@@ -1,5 +1,5 @@
 import React from 'react'
-import {Message} from 'semantic-ui-react'
+import {Message, Icon} from 'semantic-ui-react'
 
 export interface ApiError {
     code:    string,
@@ -41,9 +41,12 @@ export class AppError implements ApiError {
     }
 
     toMessage() {
-        return <Message negative>
-            <Message.Header>Error: {this.code}</Message.Header>
-            {this.message}
+        return <Message icon negative>
+            <Icon name="warning sign" />
+            <Message.Content>
+                <Message.Header>Error: {this.code}</Message.Header>
+                {this.message}
+            </Message.Content>
         </Message>
     }
 }
