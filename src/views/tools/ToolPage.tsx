@@ -1,45 +1,51 @@
 import React from 'react';
 import {Header, Container, Menu, Message, Icon} from 'semantic-ui-react';
 
-export function ToolPage(props) {
-  const [active, setActive] = React.useState(props.active);
-
-  let menu = [];
-  for (let i = 0; i < props.pages.length; i++) {
-    menu.push(
-      <Menu.Item key={i} active={active === i}  onClick={() => setActive(i)}  name={props.menuItems[i]} />
-    );
-  }
-
-  return (
-      <>
-          <Header as="h1" textAlign='center'>
-              <Header.Content className='strong'>
-                  {props.name}
-              </Header.Content>
-          </Header>
-          <Container>
-              <Menu secondary>
-                  {menu}
-              </Menu>
-              {props.pages[active]}
-
-              <Message icon>
-                  <Icon color="yellow" name="bitcoin" />
-                  <Message.Content>
-                      <Message.Header>If you like this free tool with no ads, help keep the lights on for this server anonymously.</Message.Header>
-                      {process.env.REACT_APP_BITCOIN}
-                  </Message.Content>
-              </Message>
-          </Container>
-      </>
-  );
+export type ToolPageProps = {
+    active: number,
+    pages: React.ReactNode[],
+    menuItems: string[],
 }
 
-ToolPage.defaultProps = {
-    active: 0,
-    endpoint: "/api/tools/poly-reg",
+const ToolPage = ({active = 0, pages, menuItems}: ToolPageProps) => {
+    const [currentActive, setCurrentActive] = React.useState<number>(active)
 
-    pages: [],
-    menuItems: [],
-};
+    const btcAddress = process.env.REACT_APP_BITCOIN
+
+    let menu = [];
+    for (let i = 0; i < pages.length; i++) {
+        menu.push(
+            <Menu.Item key={i} active={currentActive === i}  onClick={() => setCurrentActive(i)} name={menuItems[i]} />
+        );
+    }
+
+    return (
+        <>
+            <Header as="h1" textAlign='center'>
+                <Header.Content className='strong'>
+                    {name}
+                </Header.Content>
+            </Header>
+            <Container>
+                <Menu secondary>
+                    {menu}
+                </Menu>
+                {pages[currentActive]}
+
+                <Message icon>
+                    <Icon color="yellow" name="bitcoin" />
+                    <Message.Content>
+                        <Message.Header>
+                            If you like these free tools with no ads, help keep the lights on for this server anonymously.
+                        </Message.Header>
+                        <a href={`bitcoin:${btcAddress}?amount=0.000105`}>
+                            {btcAddress}
+                        </a>
+                    </Message.Content>
+                </Message>
+            </Container>
+        </>
+    )
+}
+
+export default ToolPage

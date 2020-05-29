@@ -22,7 +22,7 @@ import { PasswordRecovery } from './views/auth/PasswordRecovery';
 import ConfirmPasswordReset from './views/auth/ConfirmPasswordReset';
 
 import {Tools}            from './views/tools/Tools';
-import {ToolPage}         from './views/tools/ToolPage';
+import ToolPage         from './views/tools/ToolPage';
 import {PolynomialRegressionTool}  from './views/tools/poly-reg/PolynomialRegressionTool';
 import {PolynomialRegressionApi}   from './views/tools/poly-reg/PolynomialRegressionApi';
 import {PolynomialRegressionAbout} from './views/tools/poly-reg/PolynomialRegressionAbout';
