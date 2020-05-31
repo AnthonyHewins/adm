@@ -10,11 +10,7 @@ type DonationProps = {
 const Donation = ({
     header = "If you like these free tools with no ads, help keep the lights on for this server anonymously.",
     amount = 0.000105,
-    children = <>
-        <br/>
-        *address may change over time to protect privacy of donors
-        <br/>
-    </>
+    children = undefined,
 }: DonationProps) => {
     const btcAddress = process.env.REACT_APP_BITCOIN
 
