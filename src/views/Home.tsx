@@ -125,48 +125,47 @@ export function Home(props = defaultProps) {
 
           <Grid stackable>
             <Grid.Row columns={2}>
-              <Grid.Column floated='left'>
-                <LineChart width={350} height={350} data={data}>
-                  <Line type="monotone" dataKey="modern" stroke="hsl(0, 100%, 75%)" />
-                  <Line type="monotone" dataKey="old" stroke="hsl(0, 100%, 55%)" />
-                  <Line type="monotone" dataKey="ancient" stroke="hsl(0, 100%, 35%)" />
-                  <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-                  <XAxis dataKey="name">
-                    <Label value="months" offset={0} position="insideBottom" />
-                  </XAxis>
-                  <YAxis unit="K"/>
-                  <Tooltip />
-                </LineChart>
-
-              </Grid.Column>
-              <Grid.Column>
-                <List bulleted className='weak'>
-                  <List.Item>
-                    Large teams = large overhead
-                    <List bulleted>
-                      <List.Item>In communication with clients</List.Item>
-                      <List.Item>In response to industry trends</List.Item>
-                      <List.Item>In processes to complete an end product</List.Item>
-                      <List.Item>Bloated management, scarce development</List.Item>
+                <Grid.Column floated='left'>
+                    <LineChart width={350} height={350} data={data}>
+                        <XAxis dataKey="name" label={
+                            <Label value="months" offset={0} position="insideBottom" />
+                        }/>
+                            <YAxis unit="K"/>
+                            <Line type="monotone" dataKey="modern" stroke="hsl(0, 100%, 75%)" />
+                            <Line type="monotone" dataKey="old" stroke="hsl(0, 100%, 55%)" />
+                            <Line type="monotone" dataKey="ancient" stroke="hsl(0, 100%, 35%)" />
+                            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+                            <Tooltip />
+                    </LineChart>
+                </Grid.Column>
+                <Grid.Column>
+                    <List bulleted className='weak'>
+                        <List.Item>
+                            Large teams = large overhead
+                            <List bulleted>
+                                <List.Item>In communication with clients</List.Item>
+                                <List.Item>In response to industry trends</List.Item>
+                                <List.Item>In processes to complete an end product</List.Item>
+                                <List.Item>Bloated management, scarce development</List.Item>
+                            </List>
+                        </List.Item>
+                        <List.Item>
+                            Lack of adoption in emerging technology
+                            <List bulleted>
+                                <List.Item>Old technology in last place is the first and only choice</List.Item>
+                                <List.Item>Technically inept management and C levels</List.Item>
+                                <List.Item>New technology geared for an industry upset too costly to switch to</List.Item>
+                                <List.Item>Process management a century old</List.Item>
+                            </List>
+                        </List.Item>
+                        <List.Item>
+                            Can't part with dying technology
+                            <List bulleted>
+                                <List.Item>Everything you just read...all over again</List.Item>
+                            </List>
+                        </List.Item>
                     </List>
-                  </List.Item>
-                  <List.Item>
-                    Lack of adoption in emerging technology
-                    <List bulleted>
-                      <List.Item>Old technology in last place is the first and only choice</List.Item>
-                      <List.Item>Technically inept management and C levels</List.Item>
-                      <List.Item>New technology geared for an industry upset too costly to switch to</List.Item>
-                      <List.Item>Process management a century old</List.Item>
-                    </List>
-                  </List.Item>
-                  <List.Item>
-                    Can't part with dying technology
-                    <List bulleted>
-                      <List.Item>Everything you just read...all over again</List.Item>
-                    </List>
-                  </List.Item>
-                </List>
-              </Grid.Column>
+                </Grid.Column>
             </Grid.Row>
           </Grid>
         </Segment>

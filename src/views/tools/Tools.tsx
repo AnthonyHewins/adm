@@ -101,8 +101,8 @@ export function Tools(props) {
               <YAxis type="number" dataKey="y" name="mass" unit="C" />
               <ZAxis type="number" dataKey="z" name="type" unit="class" />
 
-              <Scatter data={random}     fill="hsl(30, 100%, 65%)" />
-              <Scatter data={engineered} fill="hsl(30, 100%, 25%)" />
+              <Scatter className="" data={random}     fill="hsl(30, 100%, 65%)" />
+              <Scatter className="" data={engineered} fill="hsl(30, 100%, 25%)" />
             </ScatterChart>
           </Tool>
         </Grid>
