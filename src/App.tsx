@@ -35,17 +35,17 @@ import './fonts/slimjoe.otf';
 import './App.css';
 
 export interface AppProps {
-    appName: string,
-    apiBase: string,
+    appName: string;
+    apiBase: string;
 
-    polyReg:            string,
-    featureEngineering: string,
-    registration:       string,
-    resetPassword:      string,
-    confirmReset:       string,
-    acctConfirmation:   string,
-    login:              string,
-    refreshToken:       string,
+    polyReg:            string;
+    featureEngineering: string;
+    registration:       string;
+    resetPassword:      string;
+    confirmReset:       string;
+    acctConfirmation:   string;
+    login:              string;
+    refreshToken:       string;
 }
 
 export function App(props: AppProps) {

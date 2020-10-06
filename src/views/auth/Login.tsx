@@ -6,14 +6,14 @@ import {JwtResponse} from '../../api/user/jwt'
 import { List, Message, Header, Container, Segment, Form, Loader} from 'semantic-ui-react';
 
 export interface LoginProps {
-    endpoint?: string,
+    endpoint?: string;
 
-    email?: string,
-    password?: string,
+    email?: string;
+    password?: string;
 
-    setLoggedIn?: (currentLoginStatus: boolean) => void,
+    setLoggedIn?: (currentLoginStatus: boolean) => void;
 
-    message?: React.ReactNode,
+    message?: React.ReactNode;
 }
 
 export function Login({
@@ -59,7 +59,7 @@ export function Login({
 
     const alreadyLoggedIn = sessionStorage.getItem("jwt-token") !== null && sessionStorage.getItem("jwt-expiration") !== null
 
-    let loginButton = <Form.Button primary disabled={alreadyLoggedIn} className="slimjoe" type='submit' onClick={onClick}>
+    const loginButton = <Form.Button primary disabled={alreadyLoggedIn} className="slimjoe" type='submit' onClick={onClick}>
         Submit
     </Form.Button>
 

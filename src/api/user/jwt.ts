@@ -1,8 +1,8 @@
 import {apiCall, AppError} from '../core'
 
 export interface JwtResponse {
-    token: string
-    expire: string
+    token: string;
+    expire: string;
 }
 
 export function fetchJwt(endpoint: string, errCallback = (e: AppError) => console.error(e)): string {

@@ -2,12 +2,12 @@ import React from 'react'
 import {Message, Icon} from 'semantic-ui-react'
 
 export interface ApiError {
-    code:    string,
-    message: string,
+    code:    string;
+    message: string;
 }
 
 export interface ApiAffirmative {
-    message: string
+    message: string;
 }
 
 export function apiCall<T>(fetchPromise: Promise<any>, success: (x: T) => void, err: (e: AppError) => void) {

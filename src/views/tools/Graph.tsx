@@ -3,12 +3,12 @@ import {Segment, Header, Icon,} from 'semantic-ui-react';
 import {ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 
 export interface GraphProps {
-    fn?: (arg0: number) => number,
+    fn?: (arg0: number) => number;
 
-    leftBound?:  number,
-    rightBound?: number,
-    width?:      string, // for some reason the rechart API requires this to be a string
-    height?:     number,
+    leftBound?:  number;
+    rightBound?: number;
+    width?:      string; // for some reason the rechart API requires this to be a string
+    height?:     number;
 }
 
 export function Graph({
@@ -34,7 +34,7 @@ export function Graph({
         );
     }
 
-    let plot = [];
+    const plot = [];
     for (let i = leftBound; i <= rightBound; i++) {
         plot.push({x: i, y: fn(i)});
     }

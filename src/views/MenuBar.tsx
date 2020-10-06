@@ -3,8 +3,8 @@ import {Menu} from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 
 export interface MenuProps {
-    loggedIn?: boolean,
-    setLoggedIn?: (loginStatus: boolean) => void,
+    loggedIn?: boolean;
+    setLoggedIn?: (loginStatus: boolean) => void;
 }
 
 export function MenuBar({loggedIn = false, setLoggedIn = (_: boolean) => null}: MenuProps) {

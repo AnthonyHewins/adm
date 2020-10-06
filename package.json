@@ -23,6 +23,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "lint": "yarn run eslint -c .eslintrc.override.js 'src/**' --ext ts tsx --fix --no-error-on-unmatched-pattern",
     "test": "react-scripts test",
     "test:full": "tsc &&  react-scripts test",
     "eject": "react-scripts eject"

@@ -6,13 +6,13 @@ import ErrorCheck from '../shared/ErrorCheck'
 import { useHistory } from 'react-router-dom'
 
 type ConfirmPasswordResetProps = {
-    endpoint: string,
+    endpoint: string;
 
-    message?: React.ReactNode,
+    message?: React.ReactNode;
 
-    token?: string,
-    newPassword?: string,
-    newPasswordConfirm?: string,
+    token?: string;
+    newPassword?: string;
+    newPasswordConfirm?: string;
 }
 
 enum formErrors {
@@ -36,7 +36,7 @@ const ConfirmPasswordReset = ({endpoint, token = "", newPassword = "", newPasswo
     const history = useHistory()
     const [errors, setErrors] = React.useState(0)
 
-    React.useEffect(() => setErrors(checkErrors()), [currentNewPassword, currentNewPasswordConfirm, currentToken])
+    React.useEffect(() => setErrors(checkErrors()), [checkErrors, currentNewPassword, currentNewPasswordConfirm, currentToken])
 
     const changePassword = () => {
         confirmPwReset(

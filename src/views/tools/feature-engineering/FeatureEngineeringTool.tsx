@@ -8,17 +8,17 @@ import {EnterData} from '../EnterData';
 import {DataView} from '../DataView';
 
 export interface FeatureEngineeringToolProps {
-    endpoint?: string,
-    output?:   number[][],
+    endpoint?: string;
+    output?:   number[][];
 
-    mode?:     Modes,
-    data?:     string[][],
-    message?:  React.ReactNode,
+    mode?:     Modes;
+    data?:     string[][];
+    message?:  React.ReactNode;
 }
 
 interface FeData {
-    imputedData?: number[][],
-    err?:         React.ReactNode,
+    imputedData?: number[][];
+    err?:         React.ReactNode;
 }
 
 export function FeatureEngineeringTool({

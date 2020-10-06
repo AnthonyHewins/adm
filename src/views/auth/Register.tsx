@@ -14,14 +14,14 @@ enum Errors {
 
 export interface RegisterProps {
     // Data
-    email?:           string,
-    password?:        string,
-    passwordConfirm?: string,
-    message?:         React.ReactNode,
+    email?:           string;
+    password?:        string;
+    passwordConfirm?: string;
+    message?:         React.ReactNode;
 
     //Meta
-    passwordLength?:  number,
-    endpoint?:        string,
+    passwordLength?:  number;
+    endpoint?:        string;
 }
 
 export function Register({email = "", password = "", passwordConfirm = "", message = null, passwordLength = 6, endpoint = "/api/v1/register"}: RegisterProps) {
@@ -36,8 +36,8 @@ export function Register({email = "", password = "", passwordConfirm = "", messa
         (!emailRegex.test(mail)     ? Errors.email   : 0)
     );
 
-    let [errors, setErrors] = React.useState(0);
-    React.useEffect(() => setErrors(checkErrors()), [mail, pw, pwConfirm]);
+    const [errors, setErrors] = React.useState(0);
+    React.useEffect(() => setErrors(checkErrors()), [checkErrors, mail, pw, pwConfirm]);
 
     const onClick = () => register(
         mail,

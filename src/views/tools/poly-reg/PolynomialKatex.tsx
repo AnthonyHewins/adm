@@ -3,8 +3,8 @@ import 'katex/dist/katex.min.css';
 import { BlockMath } from 'react-katex';
 
 export interface PolynomialKatexProps {
-    coef: number[],
-    decimalPlaces: number,
+    coef: number[];
+    decimalPlaces: number;
 }
 
 export function PolynomialKatex({coef = [], decimalPlaces = 3}: PolynomialKatexProps) {

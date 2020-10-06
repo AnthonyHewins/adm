@@ -2,8 +2,8 @@ import React from 'react'
 import {List, Icon} from 'semantic-ui-react';
 
 interface checkProps {
-    err: boolean | number,
-    name: string,
+    err: boolean | number;
+    name: string;
 }
 
 const ErrorCheck = (props: checkProps) => {

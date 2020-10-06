@@ -10,22 +10,22 @@ import {polyreg} from '../../../api/tools/polyreg'
 import {Matrix} from '../../../api/tools/matrix'
 
 export interface PolynomialRegressionToolProps {
-    endpoint?:      string,
+    endpoint?:      string;
 
-    degree?:        number,
-    maxDeg?:        number,
-    decimalPlaces?: number,
-    coefficient?:   number[],
-    data?:          string[][],
+    degree?:        number;
+    maxDeg?:        number;
+    decimalPlaces?: number;
+    coefficient?:   number[];
+    data?:          string[][];
 
-    message?:       React.ReactNode,
-    graph?:         React.ReactNode,
+    message?:       React.ReactNode;
+    graph?:         React.ReactNode;
 }
 
 interface Regression {
-    graph: React.ReactNode,
-    coef:  number[],
-    err?:  React.ReactNode,
+    graph: React.ReactNode;
+    coef:  number[];
+    err?:  React.ReactNode;
 }
 
 export function PolynomialRegressionTool({

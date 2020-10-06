@@ -2,9 +2,9 @@ import React from 'react'
 import {Message, Icon,} from 'semantic-ui-react'
 
 type DonationProps = {
-    header?: React.ReactNode,
-    amount?: number,
-    children?: React.ReactNode,
+    header?: React.ReactNode;
+    amount?: number;
+    children?: React.ReactNode;
 }
 
 const Donation = ({

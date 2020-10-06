@@ -2,7 +2,7 @@ import {apiCall, AppError} from '../core'
 import {Matrix} from './matrix'
 
 interface Polynomial {
-    coef: number[]
+    coef: number[];
 }
 
 export function polyreg(
@@ -14,7 +14,7 @@ export function polyreg(
     endpoint        = "/api/v1/poly-reg"
 ): void {
 
-    let data = {x: [], y: [], maxDeg: maxDeg};
+    const data = {x: [], y: [], maxDeg: maxDeg};
     for (let i = 0; i < matrix.length; i++) {
         data.x.push(matrix.mat[i][0]);
         data.y.push(matrix.mat[i][1]);

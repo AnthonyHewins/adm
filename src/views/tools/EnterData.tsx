@@ -3,13 +3,13 @@ import {Popup, Segment, Icon, Input, Grid, Button} from 'semantic-ui-react';
 import {Matrix} from '../../api/tools/matrix'
 
 interface IncrementDecrementProps {
-    title:   string,
-    tooltip: string,
+    title:   string;
+    tooltip: string;
 
-    increment:  () => void,
-    decrement:  () => void,
-    disableInc: boolean,
-    disableDec: boolean,
+    increment:  () => void;
+    decrement:  () => void;
+    disableInc: boolean;
+    disableDec: boolean;
 }
 
 const IncrementDecrement = (props: IncrementDecrementProps) => (
@@ -23,14 +23,14 @@ const IncrementDecrement = (props: IncrementDecrementProps) => (
 );
 
 export interface EnterDataProps {
-    dimensions?: number,
-    maxDim?:     number,
-    minDim?:     number,
-    maxPoints?:  number,
-    minPoints?:  number,
+    dimensions?: number;
+    maxDim?:     number;
+    minDim?:     number;
+    maxPoints?:  number;
+    minPoints?:  number;
 
-    data?:       (undefined | string)[][] | undefined,
-    action?:     (m: Matrix) => void,
+    data?:       (undefined | string)[][] | undefined;
+    action?:     (m: Matrix) => void;
 };
 
 export function EnterData({
@@ -60,15 +60,15 @@ export function EnterData({
 
     if (needsStateUpdate) { setCurrentData(clone) }
 
-    let formFields = [];
+    const formFields = [];
     let hasErrors = false
 
     for (let i = 0; i < currentData.length; i++) {
-        let pt: string[] = currentData[i];
+        const pt: string[] = currentData[i];
 
-        let cols = []
+        const cols = []
         for (let j = 0; j < pt.length; j++) {
-            let current: string | undefined = pt[j];
+            const current: string | undefined = pt[j];
             const err = current !== undefined && (isNaN(Number(current)) || current === '')
             hasErrors = hasErrors || err
 
@@ -107,7 +107,7 @@ export function EnterData({
 
     const onClick = () => {
         const matrix = currentData.reduce((filtered: number[][], current: string[] | undefined[]) => {
-            let row = []
+            const row = []
             for (let i = 0; i < current.length; i++) {
                 if (current[i] === "")
                     return filtered

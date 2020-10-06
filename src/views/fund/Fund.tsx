@@ -2,7 +2,7 @@ import React from 'react'
 import { Segment, Image, List, Icon, Card, Container, Header} from 'semantic-ui-react'
 
 export interface FundProps {
-    message?: React.ReactNode
+    message?: React.ReactNode;
 }
 
 export function Fund({message = undefined}: FundProps) {

@@ -17,9 +17,9 @@ import {
 } from 'semantic-ui-react';
 
 export function Tools(props) {
-  let svcClass1 = [], svcClass2 = [], svcClass3 = [];
-  let random = [], engineered = [];
-  let distroEstimator = [];
+  const svcClass1 = [], svcClass2 = [], svcClass3 = [];
+  const random = [], engineered = [];
+  const distroEstimator = [];
 
   for (let i = 1; i < 50; i++) {
     if (i < 79) {
@@ -48,7 +48,7 @@ export function Tools(props) {
     }
   }
 
-  let normalDist = [];
+  const normalDist = [];
   const normalDistConstant = 1 / (Math.sqrt(2 * Math.PI));
   for (let i = -5; i <= 5; i += 1) {
     normalDist.push({x: i, y: normalDistConstant * Math.pow(

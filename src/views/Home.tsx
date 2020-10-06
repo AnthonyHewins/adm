@@ -14,7 +14,7 @@ import { Label, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 're
 import plato from '../images/plato.png';
 
 export interface HomeProps {
-    appName: string,
+    appName: string;
 }
 
 const defaultProps: HomeProps = {
@@ -22,7 +22,7 @@ const defaultProps: HomeProps = {
 }
 
 export function Home(props = defaultProps) {
-  let data = [];
+  const data = [];
   for (let i = 0; i < 10; i++) {
     data.push({
       name: i,

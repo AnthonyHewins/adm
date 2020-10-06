@@ -4,8 +4,8 @@ import {acctConfirmation} from '../../api/user/acctConfirmation'
 import { AppAffirmative, AppError } from '../../api/core'
 
 export interface AcctConfirmation {
-    endpoint: string,
-    routerProps: any
+    endpoint: string;
+    routerProps: any;
 }
 
 export function AcctConfirmation({endpoint, routerProps}: AcctConfirmation) {

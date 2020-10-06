@@ -5,13 +5,13 @@ import { Header, Container, Segment, Form, Loader, Dimmer} from 'semantic-ui-rea
 import { useHistory } from "react-router-dom";
 
 export interface PasswordRecovery {
-    endpoint: string,
+    endpoint: string;
 
-    email?: string,
+    email?: string;
 
-    setLoggedIn?: (currentLoginStatus: boolean) => void,
+    setLoggedIn?: (currentLoginStatus: boolean) => void;
 
-    message?: React.ReactNode,
+    message?: React.ReactNode;
 }
 
 export function PasswordRecovery({

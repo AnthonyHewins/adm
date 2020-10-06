@@ -23,7 +23,7 @@ export class Matrix {
         this.mat = data
     }
 
-    toPlot(axes = []): {[key:string]:number}[] {
+    toPlot(axes = []): {[key: string]: number}[] {
         if (axes.length == 0) {
             if (this.dim <= 26) {
                 // supply reasonable defaults
@@ -36,7 +36,7 @@ export class Matrix {
         }
 
         return this.mat.map(row => {
-            let hash: {[key: string]: number} = {}
+            const hash: {[key: string]: number} = {}
 
             for (let i = 0; i < axes.length; i++)
                 hash[axes[i]] = row[i]

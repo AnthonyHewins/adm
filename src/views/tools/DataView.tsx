@@ -3,7 +3,7 @@ import {Form, Button, TextArea, Segment, Header, Icon} from 'semantic-ui-react';
 import {CSVLink} from 'react-csv';
 
 export interface DataViewProps {
-   data?: number[][]
+   data?: number[][];
 }
 
 export function DataView({
@@ -24,7 +24,7 @@ export function DataView({
         );
     }
 
-    let csv = data.map(i => i.map(j => j.toString()).join(',')).join("\r\n");
+    const csv = data.map(i => i.map(j => j.toString()).join(',')).join("\r\n");
 
     return (
         <>
