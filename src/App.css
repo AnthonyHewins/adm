@@ -1,7 +1,7 @@
 @font-face {
-  font-family: 'slimjoe';
+  font-family: "slimjoe";
   font-weight: 100;
-  src: local('slimjoe'), url(./fonts/slimjoe.woff2) format('opentype');
+  src: local("slimjoe"), url(./fonts/slimjoe.woff2) format("opentype");
 }
 
 .slimjoe {
