@@ -27,7 +27,6 @@ import FeatureEngineeringTool from './views/tools/feature-engineering/FeatureEng
 import FeatureEngineeringApi from './views/tools/feature-engineering/FeatureEngineeringApi';
 import FeatureEngineeringAbout from './views/tools/feature-engineering/FeatureEngineeringAbout';
 
-import './fonts/slimjoe.woff2';
 import './App.css';
 
 export interface AppProps {
