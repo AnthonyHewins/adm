@@ -1,33 +1,29 @@
-import React from 'react'
-import {Message, Icon,} from 'semantic-ui-react'
+import React from 'react';
+import { Message, Icon } from 'semantic-ui-react';
 
 type DonationProps = {
-    header?: React.ReactNode;
-    amount?: number;
-    children?: React.ReactNode;
-}
+  header?: React.ReactNode;
+  amount?: number;
+  children?: React.ReactNode;
+};
 
 const Donation = ({
-    header = "If you like these free tools with no ads, help keep the lights on for this server anonymously.",
-    amount = 0.000105,
-    children = undefined,
+  header = 'If you like these free tools with no ads, help keep the lights on for this server anonymously.',
+  amount = 0.000105,
+  children = undefined,
 }: DonationProps) => {
-    const btcAddress = process.env.REACT_APP_BITCOIN
+  const btcAddress = process.env.REACT_APP_BITCOIN;
 
-    return (
-        <Message icon>
-            <Icon color="yellow" name="bitcoin" />
-            <Message.Content>
-                <Message.Header>
-                    {header}
-                </Message.Header>
-                <a href={`bitcoin:${btcAddress}?amount=${amount}`}>
-                    {btcAddress}
-                </a>
-                {children}
-            </Message.Content>
-        </Message>
-    )
-}
+  return (
+    <Message icon>
+      <Icon color="yellow" name="bitcoin" />
+      <Message.Content>
+        <Message.Header>{header}</Message.Header>
+        <a href={`bitcoin:${btcAddress}?amount=${amount}`}>{btcAddress}</a>
+        {children}
+      </Message.Content>
+    </Message>
+  );
+};
 
-export default Donation
+export default Donation;

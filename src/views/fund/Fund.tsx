@@ -1,38 +1,29 @@
-import React from 'react'
-import { Segment, Image, List, Icon, Card, Container, Header} from 'semantic-ui-react'
+import React from 'react';
+import { Segment, Icon, Container, Header } from 'semantic-ui-react';
 
-export interface FundProps {
-    message?: React.ReactNode;
-}
+const Fund: React.FC = () => {
+  return (
+    <Container>
+      <Header as="h1" textAlign="center">
+        <Header.Content className="strong">Fund Your Account</Header.Content>
+        <Header.Subheader className="slimjoe">Cheap, lightning-fast API that makes you money</Header.Subheader>
+      </Header>
 
-export function Fund({message = undefined}: FundProps) {
-    return (
-        <Container>
-            <Header as="h1" textAlign="center">
-                <Header.Content className="strong">
-                    Fund Your Account
-                </Header.Content>
-                <Header.Subheader className="slimjoe">
-                    Cheap, lightning-fast API that makes you money
-                </Header.Subheader>
-            </Header>
+      <Header as="h5">
+        Get armed with knowledge before investing. Use your bitcoin to leverage our tools and increase your wealth with
+        access to the growing platform.
+      </Header>
 
-            <Header as="h5">
-                Get armed with knowledge before investing. Use your bitcoin to leverage our tools and increase your wealth with access to the growing platform.
-            </Header>
-
-            <Segment placeholder>
-                <Header icon>
-                    <Icon name='tasks' />
-                    Coming soon
-                </Header>
-                <Segment.Inline>
-                    Give it a little time.
-                </Segment.Inline>
-            </Segment>
-        </Container>
-    )
-}
+      <Segment placeholder>
+        <Header icon>
+          <Icon name="tasks" />
+          Coming soon
+        </Header>
+        <Segment.Inline>Give it a little time.</Segment.Inline>
+      </Segment>
+    </Container>
+  );
+};
 /*
 
             <List>
@@ -80,3 +71,5 @@ export function Fund({message = undefined}: FundProps) {
                 </Card>
             </Card.Group>
 */
+
+export default Fund;

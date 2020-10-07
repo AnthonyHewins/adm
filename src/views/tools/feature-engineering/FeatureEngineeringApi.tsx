@@ -1,43 +1,38 @@
 import React from 'react';
-import {Table, Header} from 'semantic-ui-react';
+import { Table, Header } from 'semantic-ui-react';
 import Highlight from 'react-highlight';
 import 'highlight.js/styles/solarized-dark.css';
+import { ApiProps } from '../shared';
 
-export const FeatureEngineeringApi = props => {
+const FeatureEngineeringApi: React.FC<ApiProps> = ({ endpoint = '/api/tools/feature-engineering' }) => {
   return (
     <>
       <Header>
         <Header.Content>
-          <pre>POST {props.endpoint}</pre>
+          <pre>POST {endpoint}</pre>
         </Header.Content>
       </Header>
 
-      <p>
-        This endpoint performs basic feature scaling techniques over a rectangular matrix with up to 100 elements.
-      </p>
+      <p>This endpoint performs basic feature scaling techniques over a rectangular matrix with up to 100 elements.</p>
 
       <Header>
-        <Header.Content className="mid">
-          Request
-        </Header.Content>
+        <Header.Content className="mid">Request</Header.Content>
       </Header>
 
-      <p className="weak">
-        Headers
-      </p>
+      <p className="weak">Headers</p>
 
       <Table basic>
         <Table.Body>
           <Table.Row>
             <Table.Cell>Content-Type</Table.Cell>
-            <Table.Cell><pre>application/json</pre></Table.Cell>
+            <Table.Cell>
+              <pre>application/json</pre>
+            </Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table>
 
-      <p className="weak">
-        Payload
-      </p>
+      <p className="weak">Payload</p>
 
       <Highlight className="JSON">
         {`{
@@ -57,32 +52,38 @@ export const FeatureEngineeringApi = props => {
         </Table.Header>
         <Table.Body>
           <Table.Row>
-            <Table.Cell><pre>x</pre></Table.Cell>
-            <Table.Cell><pre>[][]float64</pre></Table.Cell>
+            <Table.Cell>
+              <pre>x</pre>
+            </Table.Cell>
+            <Table.Cell>
+              <pre>[][]float64</pre>
+            </Table.Cell>
             <Table.Cell>The feature matrix</Table.Cell>
             <Table.Cell>
-              <pre>{"len(x) * len(x[0]) <= 100"}</pre>
+              <pre>{'len(x) * len(x[0]) <= 100'}</pre>
               <pre>len(y) == len(z) &forall;y,z&isin;x</pre>
             </Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell><pre>mode</pre></Table.Cell>
-            <Table.Cell><pre>string</pre></Table.Cell>
+            <Table.Cell>
+              <pre>mode</pre>
+            </Table.Cell>
+            <Table.Cell>
+              <pre>string</pre>
+            </Table.Cell>
             <Table.Cell>Which method of scaling to use</Table.Cell>
-            <Table.Cell><pre>mode &isin; &#123;zscore, mean-normalization&#125;</pre></Table.Cell>
+            <Table.Cell>
+              <pre>mode &isin; &#123;zscore, mean-normalization&#125;</pre>
+            </Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table>
 
       <Header>
-        <Header.Content className="mid">
-          Response
-        </Header.Content>
+        <Header.Content className="mid">Response</Header.Content>
       </Header>
 
-      <p className="weak">
-        HTTP codes
-      </p>
+      <p className="weak">HTTP codes</p>
 
       <Table basic>
         <Table.Header>
@@ -93,31 +94,41 @@ export const FeatureEngineeringApi = props => {
         </Table.Header>
         <Table.Body>
           <Table.Row>
-            <Table.Cell><pre>200</pre></Table.Cell>
+            <Table.Cell>
+              <pre>200</pre>
+            </Table.Cell>
             <Table.Cell>Request processed successfully</Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell><pre>204</pre></Table.Cell>
-            <Table.Cell><pre>{"len(x) <= 1"}</pre></Table.Cell>
+            <Table.Cell>
+              <pre>204</pre>
+            </Table.Cell>
+            <Table.Cell>
+              <pre>{'len(x) <= 1'}</pre>
+            </Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell><pre>400</pre></Table.Cell>
+            <Table.Cell>
+              <pre>400</pre>
+            </Table.Cell>
             <Table.Cell>Request malformed; arguments missing or not the proper type</Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell><pre>422</pre></Table.Cell>
+            <Table.Cell>
+              <pre>422</pre>
+            </Table.Cell>
             <Table.Cell>Invalid params; check validations</Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell><pre>500</pre></Table.Cell>
+            <Table.Cell>
+              <pre>500</pre>
+            </Table.Cell>
             <Table.Cell>General error</Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table>
 
-      <p className="weak">
-        Payload
-      </p>
+      <p className="weak">Payload</p>
 
       <Highlight className="json">
         {`// HTTP 200 Success
@@ -144,22 +155,34 @@ export const FeatureEngineeringApi = props => {
         </Table.Header>
         <Table.Body>
           <Table.Row>
-            <Table.Cell><pre>x</pre></Table.Cell>
-            <Table.Cell><pre>[][]float64</pre></Table.Cell>
+            <Table.Cell>
+              <pre>x</pre>
+            </Table.Cell>
+            <Table.Cell>
+              <pre>[][]float64</pre>
+            </Table.Cell>
             <Table.Cell>New scaled feature</Table.Cell>
             <Table.Cell>Same as the restrictions on the request</Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell><pre>error</pre></Table.Cell>
-            <Table.Cell><pre>string</pre></Table.Cell>
+            <Table.Cell>
+              <pre>error</pre>
+            </Table.Cell>
+            <Table.Cell>
+              <pre>string</pre>
+            </Table.Cell>
             <Table.Cell>Shorthand description for switch cases</Table.Cell>
             <Table.Cell>
               <pre>error &isin; {"{'param', 'length-mismatch', 'cmd', 'length', 'server'}"}</pre>
             </Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell><pre>message</pre></Table.Cell>
-            <Table.Cell><pre>string</pre></Table.Cell>
+            <Table.Cell>
+              <pre>message</pre>
+            </Table.Cell>
+            <Table.Cell>
+              <pre>string</pre>
+            </Table.Cell>
             <Table.Cell>Detailed explanation of the error</Table.Cell>
             <Table.Cell></Table.Cell>
           </Table.Row>
@@ -169,6 +192,4 @@ export const FeatureEngineeringApi = props => {
   );
 };
 
-FeatureEngineeringApi.defaultProps = {
-  endpoint: "/api/tools/feature-engineering"
-};
+export default FeatureEngineeringApi;
