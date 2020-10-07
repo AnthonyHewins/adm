@@ -44,7 +44,7 @@ const Tools: React.FC = () => {
     normalDist.push({ x: i, y: normalDistConstant * Math.pow(Math.E, -Math.pow(i, 2) / 2) });
   }
 
-  const Tool: React.FC<{ link: string; name: string }> = ({ link, name }) => (
+  const Tool: React.FC<{ link: string; name: string }> = ({ link, name, children }) => (
     <Grid.Row as={Link} to={link} verticalAlign="middle" columns={2}>
       <Grid.Column floated="left">{children}</Grid.Column>
       <Grid.Column textAlign="center">
