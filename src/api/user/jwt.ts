@@ -1,6 +1,6 @@
 import { apiCall, AppError } from '../core';
 
-type JwtResponse = {
+export type JwtResponse = {
   token: string;
   expire: string;
 }

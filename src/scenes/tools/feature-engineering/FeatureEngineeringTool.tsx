@@ -1,11 +1,11 @@
 import React from 'react';
-import { Matrix } from 'api/tools/matrix';
-import { AppError } from 'api/core';
-import { featureEngineering, Modes } from 'api/tools/featureEngineering';
+import { Matrix } from '../../../api/tools/matrix';
+import { AppError } from '../../../api/core';
+import { featureEngineering, Modes } from '../../../api/tools/featureEngineering';
 import { Grid, Form, Message, Checkbox } from 'semantic-ui-react';
 
-import { EnterData } from 'components/EnterData';
-import { DataView } from 'components/DataView';
+import { EnterData } from '../../../components/EnterData';
+import { DataView } from '../../../components/DataView';
 
 export interface FeatureEngineeringToolProps {
   endpoint?: string;

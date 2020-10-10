@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Home from './Home';
-import Contact from './contact/Contact';
-import Anthony from './contact/Anthony';
+import Contact from './Contact';
+import Anthony from './Anthony';
 
 import {Switch, Route} from 'react-router-dom';
 
@@ -15,7 +15,7 @@ import PasswordRecovery from './auth/PasswordRecovery';
 import ConfirmPasswordReset from './auth/ConfirmPasswordReset';
 
 import Tools from './tools/Tools';
-import ToolPage from './tools/ToolPage';
+import ToolPage from '../components/tools/ToolPage';
 import PolynomialRegressionTool from './tools/poly-reg/PolynomialRegressionTool';
 import PolynomialRegressionApi from './tools/poly-reg/PolynomialRegressionApi';
 import PolynomialRegressionAbout from './tools/poly-reg/PolynomialRegressionAbout';
@@ -24,7 +24,17 @@ import FeatureEngineeringTool from './tools/feature-engineering/FeatureEngineeri
 import FeatureEngineeringApi from './tools/feature-engineering/FeatureEngineeringApi';
 import FeatureEngineeringAbout from './tools/feature-engineering/FeatureEngineeringAbout';
 
+const acctConfirmation = ""
+const featureEngineering = ""
+const polyreg = ""
+const login = ""
+const registration = ""
+const confirmReset = ""
+const resetPassword = ""
+
 const RouterSwitch: React.FC = () => {
+  const setLoggedIn = (x: any): void => null
+
     return (
       <Switch>
         <Route
@@ -78,7 +88,7 @@ const RouterSwitch: React.FC = () => {
           <PasswordRecovery endpoint={resetPassword} />
         </Route>
         <Route exact path="/">
-          <Home appName={props.appName} />
+          <Home appName={process.env.APP_NAME} />
         </Route>
       </Switch>
     )

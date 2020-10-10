@@ -9,8 +9,12 @@ import RouterSwitch from './scenes/RouterSwitch'
 
 import './App.css';
 
-const App: React.FC = (props) => {
-  const [loggedIn, setLoggedIn] = React.useState(fetchJwt(props.refreshToken) !== null);
+type AppProps = {
+  refreshToken?: string
+}
+
+const App: React.FC<AppProps> = ({refreshToken}) => {
+  const [loggedIn, setLoggedIn] = React.useState(fetchJwt(refreshToken) !== null);
 
   return (
     <Router>

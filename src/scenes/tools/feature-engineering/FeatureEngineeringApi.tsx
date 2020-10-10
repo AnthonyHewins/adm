@@ -2,7 +2,10 @@ import React from 'react';
 import { Table, Header } from 'semantic-ui-react';
 import Highlight from 'react-highlight';
 import 'highlight.js/styles/solarized-dark.css';
-import { ApiProps } from '../shared';
+
+type ApiProps = {
+  endpoint: string
+}
 
 const FeatureEngineeringApi: React.FC<ApiProps> = ({ endpoint = '/api/tools/feature-engineering' }) => {
   return (
