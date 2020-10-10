@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "rootDirs": ["src"],
     "target": "es5",
     "module": "esnext",
     "jsx": "react",

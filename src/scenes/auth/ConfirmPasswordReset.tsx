@@ -1,8 +1,8 @@
 import React from 'react';
 import { List, Container, Segment, Form, Header, Message } from 'semantic-ui-react';
-import { confirmPwReset } from '../../api/user/confirmPwReset';
-import { AppAffirmative, AppError } from '../../api/core';
-import ErrorCheck from '../shared/ErrorCheck';
+import { confirmPwReset } from 'api/user/confirmPwReset';
+import { AppAffirmative, AppError } from 'api/core';
+import ErrorCheck from 'components/ErrorCheck';
 import { useHistory } from 'react-router-dom';
 
 type ConfirmPasswordResetProps = {

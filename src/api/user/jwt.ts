@@ -1,11 +1,11 @@
 import { apiCall, AppError } from '../core';
 
-export interface JwtResponse {
+type JwtResponse = {
   token: string;
   expire: string;
 }
 
-export function fetchJwt(endpoint: string, errCallback = (e: AppError) => console.error(e)): string {
+function fetchJwt(endpoint: string, errCallback = (e: AppError) => console.error(e)): string {
   const expiration = sessionStorage.getItem('jwt-expiration');
 
   if (expiration === null) {
@@ -62,3 +62,5 @@ async function refreshToken(
 
   apiCall(fetch(endpoint, req), onSuccess, onError);
 }
+
+export default fetchJwt

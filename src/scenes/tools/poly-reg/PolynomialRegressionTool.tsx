@@ -2,12 +2,12 @@ import React from 'react';
 import { InlineMath } from 'react-katex';
 import { Popup, Button, Message, Grid } from 'semantic-ui-react';
 
-import { EnterData } from '../EnterData';
-import { Graph } from '../Graph';
+import { EnterData } from 'components/EnterData';
+import { Graph } from 'components/Graph';
 import { PolynomialKatex } from './PolynomialKatex';
-import { AppError } from '../../../api/core';
-import { polyreg } from '../../../api/tools/polyreg';
-import { Matrix } from '../../../api/tools/matrix';
+import { AppError } from 'api/core';
+import { polyreg } from 'api/tools/polyreg';
+import { Matrix } from 'api/tools/matrix';
 
 type PolynomialRegressionToolProps = {
   endpoint?: string;

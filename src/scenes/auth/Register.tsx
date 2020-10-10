@@ -1,8 +1,8 @@
 import React from 'react';
-import { register } from '../../api/user/register';
+import { register } from 'api/user/register';
 import { Header, List, Container, Segment, Form } from 'semantic-ui-react';
-import { AppError, AppAffirmative } from '../../api/core';
-import Check from '../shared/ErrorCheck';
+import { AppError, AppAffirmative } from 'api/core';
+import Check from 'components/ErrorCheck';
 
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
