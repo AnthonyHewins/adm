@@ -46,8 +46,8 @@ const RouterSwitch: React.FC = () => {
             name="Feature Engineering"
             menuItems={['Tool', 'API', 'How it works']}
             pages={[
-              <FeatureEngineeringTool key="tool" endpoint={featureEngineering} />,
-              <FeatureEngineeringApi key="api" endpoint={featureEngineering} />,
+              <FeatureEngineeringTool key="tool" />,
+              <FeatureEngineeringApi key="api" />,
               <FeatureEngineeringAbout key="about" />,
             ]}
           />
@@ -57,8 +57,8 @@ const RouterSwitch: React.FC = () => {
             name="Polynomial Regression"
             menuItems={['Tool', 'API', 'How it works']}
             pages={[
-              <PolynomialRegressionTool key="tool" endpoint={polyreg} />,
-              <PolynomialRegressionApi key="api" endpoint={polyreg} />,
+              <PolynomialRegressionTool key="tool" />,
+              <PolynomialRegressionApi key="api" />,
               <PolynomialRegressionAbout key="about" />,
             ]}
           />
@@ -73,19 +73,19 @@ const RouterSwitch: React.FC = () => {
           <Fund />
         </Route>
         <Route path="/login">
-          <Login endpoint={login} setLoggedIn={setLoggedIn} />
+          <Login setLoggedIn={setLoggedIn} />
         </Route>
         <Route path="/register">
-          <Register endpoint={registration} />
+          <Register />
         </Route>
         <Route path="/tools">
           <Tools />
         </Route>
         <Route path="/confirm-password-reset">
-          <ConfirmPasswordReset endpoint={confirmReset} />
+          <ConfirmPasswordReset />
         </Route>
         <Route path="/reset-password">
-          <PasswordRecovery endpoint={resetPassword} />
+          <PasswordRecovery />
         </Route>
         <Route exact path="/">
           <Home appName={process.env.APP_NAME} />

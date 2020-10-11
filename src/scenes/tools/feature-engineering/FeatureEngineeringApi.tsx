@@ -1,18 +1,15 @@
 import React from 'react';
 import { Table, Header } from 'semantic-ui-react';
 import Highlight from 'react-highlight';
+import config from '../../../config'
 import 'highlight.js/styles/solarized-dark.css';
 
-type ApiProps = {
-  endpoint: string
-}
-
-const FeatureEngineeringApi: React.FC<ApiProps> = ({ endpoint = '/api/tools/feature-engineering' }) => {
+const FeatureEngineeringApi: React.FC = () => {
   return (
     <>
       <Header>
         <Header.Content>
-          <pre>POST {endpoint}</pre>
+          <pre>POST {config.featureEngineering}</pre>
         </Header.Content>
       </Header>
 

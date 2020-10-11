@@ -2,17 +2,14 @@ import React from 'react';
 import { Table, Header } from 'semantic-ui-react';
 import Highlight from 'react-highlight';
 import 'highlight.js/styles/solarized-dark.css';
+import config from '../../../config'
 
-type ApiProps = {
-  endpoint: string
-}
-
-const PolynomialRegressionApi: React.FC<ApiProps> = ({ endpoint = '/api/tools/poly-reg' }) => {
+const PolynomialRegressionApi: React.FC = () => {
   return (
     <>
       <Header>
         <Header.Content>
-          <pre>POST {endpoint}</pre>
+          <pre>POST {config.polynomialRegression}</pre>
         </Header.Content>
       </Header>
 

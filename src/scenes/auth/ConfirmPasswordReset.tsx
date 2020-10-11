@@ -4,10 +4,9 @@ import { confirmPwReset } from '../../api/user/confirmPwReset';
 import { AppAffirmative, AppError } from '../../api/core';
 import ErrorCheck from '../../components/ErrorCheck';
 import { useHistory } from 'react-router-dom';
+import config from '../../config'
 
 type ConfirmPasswordResetProps = {
-  endpoint: string;
-
   message?: React.ReactNode;
 
   token?: string;
@@ -22,7 +21,6 @@ enum formErrors {
 }
 
 const ConfirmPasswordReset: React.FC<ConfirmPasswordResetProps> = ({
-  endpoint,
   token = '',
   newPassword = '',
   newPasswordConfirm = '',
@@ -61,7 +59,7 @@ const ConfirmPasswordReset: React.FC<ConfirmPasswordResetProps> = ({
         setTimeout(() => history.push('/login'), 3000);
       },
       (err: AppError) => setMsg(err.toMessage()),
-      endpoint,
+      config.passwordResetEndpoint,
     );
   };
 

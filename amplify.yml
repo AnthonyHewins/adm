@@ -2,7 +2,19 @@ version: 1
 env:
   variables:
     APP_NAME: 'Artifex de machina'
-    API_ENDPOINT: '/api/v1'
+    API_BASE: '/api/v1'
+    BITCOIN: 'bc1q6flf69z4sx0kc3ay6xc2rlqe3c2ksw366qlx44'
+    BITCOIN_AMOUNT: 0.000105
+    REGISTRATION: '/register'
+    ACCT_CONFIRMATION: '/confirm-acct'
+    
+    PASSWORD_RESET: '/reset-password'
+    CONFIRM_RESET: '/confirm-password-reset'
+    
+    LOGIN: '/login'
+    
+    POLYREG: '/poly-reg'
+    FEATURE_ENGINEERING: '/feature-engineering'
 frontend:
   phases:
     preBuild:

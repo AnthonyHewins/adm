@@ -3,15 +3,15 @@ import { AppError, AppAffirmative } from '../../api/core';
 import { pwReset } from '../../api/user/pwReset';
 import { Header, Container, Segment, Form, Loader, Dimmer } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
+import config from '../../config'
 
 type PasswordRecoveryProps = {
-  endpoint: string;
   email?: string;
   setLoggedIn?: (currentLoginStatus: boolean) => void;
   message?: React.ReactNode;
 };
 
-const PasswordRecovery: React.FC<PasswordRecoveryProps> = ({ email = '', message, setLoggedIn, endpoint }) => {
+const PasswordRecovery: React.FC<PasswordRecoveryProps> = ({ email = '', message, setLoggedIn}) => {
   const [currentEmail, setCurrentEmail] = React.useState(email);
   const [resetState, setResetState] = React.useState(message);
 
@@ -30,7 +30,7 @@ const PasswordRecovery: React.FC<PasswordRecoveryProps> = ({ email = '', message
       currentEmail,
       (_: AppAffirmative) => history.push('/confirm-password-reset'),
       (err: AppError) => setResetState(err.toMessage()),
-      endpoint,
+      config.passwordRecoveryEndpoint,
     );
   };
 
