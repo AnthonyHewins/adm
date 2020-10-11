@@ -8,31 +8,12 @@ import {Switch, Route} from 'react-router-dom';
 
 import Fund from './fund/Fund';
 
-import Login from './auth/Login';
-import Register from './auth/Register';
-import AcctConfirmation from './auth/AcctConfirmation';
-import PasswordRecovery from './auth/PasswordRecovery';
-import ConfirmPasswordReset from './auth/ConfirmPasswordReset';
-
 import ToolRoutes from './tools/ToolRoutes';
-
-const acctConfirmation = ""
-const featureEngineering = ""
-const polyreg = ""
-const login = ""
-const registration = ""
-const confirmReset = ""
-const resetPassword = ""
+import AuthRoutes from './auth/AuthRoutes';
 
 const RouterSwitch: React.FC = () => {
-  const setLoggedIn = (x: any): void => null
-
     return (
       <Switch>
-        <Route
-          path="/confirm/:token"
-          render={(routerProps) => <AcctConfirmation routerProps={routerProps} endpoint={acctConfirmation} />}
-        />
         <Route path="/contact/anthony">
           <Anthony />
         </Route>
@@ -42,19 +23,8 @@ const RouterSwitch: React.FC = () => {
         <Route path="/fund">
           <Fund />
         </Route>
-        <Route path="/login">
-          <Login setLoggedIn={setLoggedIn} />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/confirm-password-reset">
-          <ConfirmPasswordReset />
-        </Route>
-        <Route path="/reset-password">
-          <PasswordRecovery />
-        </Route>
         <ToolRoutes/>
+        <AuthRoutes/>
         <Route exact path="/">
           <Home appName={process.env.APP_NAME} />
         </Route>
