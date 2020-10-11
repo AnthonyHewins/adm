@@ -1,15 +1,15 @@
 import React from 'react';
 
-import Home from './Home';
-import Contact from './Contact';
-import Anthony from './Anthony';
+import Home from 'scenes/Home';
+import Contact from 'scenes/Contact';
+import Anthony from 'scenes/Anthony';
 
 import {Router, RouteComponentProps, Link } from '@reach/router';
 
 import Fund from './fund/Fund';
 
-import ToolRoutes from './tools/ToolRoutes';
-import AuthRoutes from './auth/AuthRoutes';
+import ToolRoutes from 'routes/ToolRoutes';
+import AuthRoutes from 'routes/AuthRoutes';
 
 const ContactCEO = (p: RouteComponentProps) => <Anthony />
 const GeneralContact = (p: RouteComponentProps) => <Contact />

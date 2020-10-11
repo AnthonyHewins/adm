@@ -5,7 +5,7 @@ import fetchJwt from './api/user/jwt';
 
 import MenuBar from './scenes/MenuBar';
 import Footer from './scenes/Footer';
-import RouterSwitch from './scenes/RouterSwitch'
+import RouterSwitch from './routes/RouterSwitch'
 
 import './App.css';
 

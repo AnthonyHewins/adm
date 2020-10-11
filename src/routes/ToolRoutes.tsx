@@ -1,15 +1,15 @@
 import React from 'react'
 import {Route} from 'react-router-dom';
 
-import Tools from './Tools';
-import ToolPage from '../../components/tools/ToolPage';
-import PolynomialRegressionTool from './poly-reg/PolynomialRegressionTool';
-import PolynomialRegressionApi from './poly-reg/PolynomialRegressionApi';
-import PolynomialRegressionAbout from './poly-reg/PolynomialRegressionAbout';
+import Tools from 'scenes/Tools';
+import ToolPage from 'components/tools/ToolPage';
+import PolynomialRegressionTool from 'scenes/poly-reg/PolynomialRegressionTool';
+import PolynomialRegressionApi from 'scenes/poly-reg/PolynomialRegressionApi';
+import PolynomialRegressionAbout from 'scenes/poly-reg/PolynomialRegressionAbout';
 
-import FeatureEngineeringTool from './feature-engineering/FeatureEngineeringTool';
-import FeatureEngineeringApi from './feature-engineering/FeatureEngineeringApi';
-import FeatureEngineeringAbout from './feature-engineering/FeatureEngineeringAbout';
+import FeatureEngineeringTool from 'scenes/feature-engineering/FeatureEngineeringTool';
+import FeatureEngineeringApi from 'scenes/feature-engineering/FeatureEngineeringApi';
+import FeatureEngineeringAbout from 'scenes/feature-engineering/FeatureEngineeringAbout';
 
 const ToolRoutes = () => {
     return (
