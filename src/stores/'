@@ -1,0 +1,21 @@
+import {types} from 'mobx-state-tree'
+
+const floatMatrix = types.array(types.array(types.float))
+
+const AppStore = types
+    .model('AppStore', {
+       token: types.optional(types.string, ""),
+       polynomialRegression: types.optional(floatMatrix, []),
+       featureEngineering: types.optional(floatMatrix, [])
+    })
+    .views(self => {
+        
+    })
+
+//https://medium.com/7shifts-engineering-blog/testing-usecontext-react-hook-with-enzyme-shallow-da062140fc83
+const store = AppStore.create();
+const context = createContext(store);
+export const useAppContext = () => useContext(context);
+export type IAppStore = typeof AppStore.Type;
+
+export default AppStore;
