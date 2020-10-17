@@ -1,18 +1,18 @@
 import React from 'react';
 import {RouteComponentProps} from '@reach/router'
 
-import Login from 'scenes/Login';
-import Register from 'scenes/Register';
-import AcctConfirmation from 'scenes/AcctConfirmation';
-import PasswordRecovery from 'scenes/PasswordRecovery';
-import ConfirmPasswordReset from 'scenes/ConfirmPasswordReset';
+import Login from 'scenes/auth/Login';
+import Register from 'scenes/auth/Register';
+import AcctConfirmation from 'scenes/auth/AcctConfirmation';
+import PasswordRecovery from 'scenes/auth/PasswordRecovery';
+import ConfirmPasswordReset from 'scenes/auth/ConfirmPasswordReset';
 
 const acctConfirmation = ""
 const RouteLogin = (p: RouteComponentProps) => <Login setLoggedIn={(currentLoginStatus: boolean) => {return;}} />
 const RouteRegister = (p: RouteComponentProps) => <Register />
 const RouteConfirmPasswordReset = (p: RouteComponentProps) => <ConfirmPasswordReset />
 const RoutePasswordRecovery = (p: RouteComponentProps) => <PasswordRecovery />
-const RouteAcctConfirmation = (p: RouteComponentProps) =>  <AcctConfirmation routerProps={routerProps} endpoint={acctConfirmation} />
+const RouteAcctConfirmation = (p: RouteComponentProps) =>  <AcctConfirmation endpoint={acctConfirmation} />
 
 const AuthRoutes = () => {
     return (

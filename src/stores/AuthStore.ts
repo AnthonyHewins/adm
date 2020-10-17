@@ -1,9 +1,10 @@
-import {types} from 'mobx-state-tree'
-import LoadingState from './LoadingState'
+import {types, flow} from 'mobx-state-tree'
+import {LoadingState, AuthState} from 'stores/enums'
 
 const AuthStore = types
     .model('AuthStore', {
-        state: types.enumeration<LoadingState>(LoadingState),
+        loadState: types.enumeration<LoadingState>(Object.values(LoadingState)),
+        authState: types.enumeration<AuthState>(Object.values(AuthState)),
         token: types.maybeNull(types.string, null),
     })
     .actions(self => {

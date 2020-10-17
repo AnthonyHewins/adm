@@ -1,6 +1,6 @@
 import React from 'react';
 import { List, Grid, Icon, Container, Divider } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@reach/router';
 
 type FooterProps = {
   links?: { name: string; url: string }[];

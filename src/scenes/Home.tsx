@@ -3,11 +3,7 @@ import { Icon, Step, Container, Grid, List, Dimmer, Header, Image, Segment } fro
 import { Label, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import plato from '../images/plato.png';
 
-export type HomeProps = {
-  appName: string;
-};
-
-const Home: React.FC<HomeProps> = ({ appName = 'ARTIFEX DE MACHINA' }) => {
+const Home: React.FC = () => {
   const data = [];
   for (let i = 0; i < 10; i++) {
     data.push({
@@ -25,7 +21,7 @@ const Home: React.FC<HomeProps> = ({ appName = 'ARTIFEX DE MACHINA' }) => {
         {/* to make it line up with the menu; there's a gap normally */}
         <Dimmer active={true}>
           <Header inverted as="h1" textAlign="center">
-            <Header.Content className="showtime">{appName}</Header.Content>
+            <Header.Content className="showtime">{process.env.NODE_ENV_APP_NAME}</Header.Content>
           </Header>
         </Dimmer>
       </Dimmer.Dimmable>

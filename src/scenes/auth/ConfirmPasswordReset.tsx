@@ -3,8 +3,8 @@ import { List, Container, Segment, Form, Header, Message } from 'semantic-ui-rea
 import { confirmPwReset } from '../../api/user/confirmPwReset';
 import { AppAffirmative, AppError } from '../../api/core';
 import ErrorCheck from '../../components/ErrorCheck';
-import { useHistory } from 'react-router-dom';
 import config from '../../config'
+import { redirectTo } from '@reach/router'
 
 type ConfirmPasswordResetProps = {
   message?: React.ReactNode;
@@ -31,7 +31,6 @@ const ConfirmPasswordReset: React.FC<ConfirmPasswordResetProps> = ({
   const [currentNewPassword, setCurrentNewPassword] = React.useState(newPassword);
   const [currentNewPasswordConfirm, setCurrentNewPasswordConfirm] = React.useState(newPasswordConfirm);
 
-  const history = useHistory();
   const [errors, setErrors] = React.useState(0);
 
   React.useEffect(
@@ -56,7 +55,7 @@ const ConfirmPasswordReset: React.FC<ConfirmPasswordResetProps> = ({
           </Message>,
         );
 
-        setTimeout(() => history.push('/login'), 3000);
+        setTimeout(() => redirectTo('/login'), 3000);
       },
       (err: AppError) => setMsg(err.toMessage()),
       config.passwordResetEndpoint,

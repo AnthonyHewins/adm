@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react';
-import { NavLink } from 'react-router-dom';
+import { Link } from '@reach/router';
 
 export interface MenuProps {
   loggedIn?: boolean;
@@ -12,7 +12,7 @@ const MenuBar: React.FC<MenuProps> = ({ loggedIn = false, setLoggedIn = (_: bool
   if (loggedIn) {
     loginComponent = (
       <>
-        <Menu.Item exact as={NavLink} to="/fund" name="Fund" className="slimjoe" />
+        <Menu.Item exact as={Link} to="/fund" name="Fund" className="slimjoe" />
         <Menu.Item
           name="Logout"
           className="slimjoe"
@@ -27,17 +27,17 @@ const MenuBar: React.FC<MenuProps> = ({ loggedIn = false, setLoggedIn = (_: bool
   } else {
     loginComponent = (
       <>
-        <Menu.Item as={NavLink} to="/register" name="Register" className="slimjoe" />
-        <Menu.Item as={NavLink} to="/login" name="Login" className="slimjoe" />
+        <Menu.Item as={Link} to="/register" name="Register" className="slimjoe" />
+        <Menu.Item as={Link} to="/login" name="Login" className="slimjoe" />
       </>
     );
   }
 
   return (
     <Menu pointing secondary>
-      <Menu.Item exact as={NavLink} to="/" name="&Lambda;" className="lambda" />
-      <Menu.Item as={NavLink} to="/tools" name="tools" className="slimjoe" />
-      <Menu.Item as={NavLink} to="/contact" name="contact" className="slimjoe" />
+      <Menu.Item exact as={Link} to="/" name="&Lambda;" className="lambda" />
+      <Menu.Item as={Link} to="/tools" name="tools" className="slimjoe" />
+      <Menu.Item as={Link} to="/contact" name="contact" className="slimjoe" />
       <Menu.Menu position="right">{loginComponent}</Menu.Menu>
     </Menu>
   );

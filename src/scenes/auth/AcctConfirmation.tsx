@@ -5,10 +5,9 @@ import { AppAffirmative, AppError } from '../../api/core';
 
 type AcctConfirmationProps = {
   endpoint: string;
-  routerProps: any;
 };
 
-const AcctConfirmation: React.FC<AcctConfirmationProps> = ({ endpoint, routerProps }) => {
+const AcctConfirmation: React.FC<AcctConfirmationProps> = ({ endpoint }) => {
   const [componentState, setComponentState] = React.useState({
     loading: true,
     jsx: <></>,
@@ -16,7 +15,8 @@ const AcctConfirmation: React.FC<AcctConfirmationProps> = ({ endpoint, routerPro
 
   if (componentState.loading) {
     acctConfirmation(
-      routerProps.match.params.token,
+        //TODO
+      "CHANGE ME",
       (x: AppAffirmative) =>
         setComponentState({
           jsx: (

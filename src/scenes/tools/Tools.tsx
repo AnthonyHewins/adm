@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@reach/router';
 import { Line, LineChart, ScatterChart, CartesianGrid, XAxis, YAxis, ZAxis, Scatter } from 'recharts';
 import { Container, Header, Grid } from 'semantic-ui-react';
 

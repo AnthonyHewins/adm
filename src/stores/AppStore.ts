@@ -1,21 +1,22 @@
-import {types} from 'mobx-state-tree'
-import AuthStore from './stores/AuthStore'
+import {createContext, useContext} from 'react'
+import {types, cast} from 'mobx-state-tree'
+import AuthStore from 'stores/AuthStore'
 
 const floatMatrix = types.array(types.array(types.number))
 
 const AppStore = types
     .model('AppStore', {
-        authStore: types.optional(AuthStore, {}),
+       authStore: types.optional(AuthStore, {}),
        polynomialRegression: types.optional(floatMatrix, []),
        featureEngineering: types.optional(floatMatrix, []),
     })
     .actions(self => {
         const setPolynomialRegression = (f: number[][]): void => {
-            self.polynomialRegression = f
+            self.polynomialRegression = cast(f)
         }
 
         const setFeatureEngineering = (f: number[][]): void => {
-            self.featureEngineering = f
+            self.featureEngineering = cast(f)
         }
 
         return {

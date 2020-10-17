@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from '@reach/router';
 import { AppError } from '../../api/core';
 import { login } from '../../api/user/login';
 import { JwtResponse } from '../../api/user/jwt';
@@ -94,10 +94,10 @@ const Login: React.FC<LoginProps> = ({
 
         <List>
           <List.Item>
-            <NavLink to="/register">Register</NavLink>
+            <Link to="/register">Register</Link>
           </List.Item>
           <List.Item>
-            <NavLink to="/reset-password">Forgot password</NavLink>
+            <Link to="/reset-password">Forgot password</Link>
           </List.Item>
         </List>
       </Segment>

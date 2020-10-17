@@ -2,7 +2,7 @@ import React from 'react';
 import { AppError, AppAffirmative } from '../../api/core';
 import { pwReset } from '../../api/user/pwReset';
 import { Header, Container, Segment, Form, Loader, Dimmer } from 'semantic-ui-react';
-import { useHistory } from 'react-router-dom';
+import { redirectTo } from '@reach/router';
 import config from '../../config'
 
 type PasswordRecoveryProps = {
@@ -15,8 +15,6 @@ const PasswordRecovery: React.FC<PasswordRecoveryProps> = ({ email = '', message
   const [currentEmail, setCurrentEmail] = React.useState(email);
   const [resetState, setResetState] = React.useState(message);
 
-  const history = useHistory();
-
   const onClick = () => {
     setResetState(
       <Segment padded="very">
@@ -28,7 +26,7 @@ const PasswordRecovery: React.FC<PasswordRecoveryProps> = ({ email = '', message
 
     pwReset(
       currentEmail,
-      (_: AppAffirmative) => history.push('/confirm-password-reset'),
+      (_: AppAffirmative) => redirectTo('/confirm-password-reset'),
       (err: AppError) => setResetState(err.toMessage()),
       config.passwordRecoveryEndpoint,
     );
