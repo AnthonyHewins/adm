@@ -2,6 +2,7 @@ import React from 'react';
 import { Icon, Step, Container, Grid, List, Dimmer, Header, Image, Segment } from 'semantic-ui-react';
 import { Label, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import plato from '../images/plato.png';
+import config from 'config';
 
 const Home: React.FC = () => {
   const data = [];
@@ -21,7 +22,7 @@ const Home: React.FC = () => {
         {/* to make it line up with the menu; there's a gap normally */}
         <Dimmer active={true}>
           <Header inverted as="h1" textAlign="center">
-            <Header.Content className="showtime">{process.env.NODE_ENV_APP_NAME}</Header.Content>
+            <Header.Content className="showtime">{config.appName}</Header.Content>
           </Header>
         </Dimmer>
       </Dimmer.Dimmable>

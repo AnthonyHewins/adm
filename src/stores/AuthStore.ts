@@ -3,21 +3,21 @@ import {LoadingState, AuthState} from 'stores/enums'
 
 const AuthStore = types
     .model('AuthStore', {
-        loadState: types.enumeration<LoadingState>(Object.values(LoadingState)),
-        authState: types.enumeration<AuthState>(Object.values(AuthState)),
-        token: types.maybeNull(types.string, null),
+        loadState: types.optional(types.enumeration<LoadingState>(Object.values(LoadingState)), LoadingState.Init),
+        authState: types.optional(types.enumeration<AuthState>(Object.values(AuthState)), AuthState.Unauthenticated),
+        token: types.maybeNull(types.string),
     })
     .actions(self => {
         const login = flow(function* (userPayload: AwsUser) {
+            self.authState = AuthState.Authenticating
             try {
                 createUser(userPayload);
                 yield createIdentity();
-                self.authState = 'authenticated';
+                self.authState = AuthState.Authenticated
                 return true;
             } catch (error) {
-                self.authState = 'not-authenticated';
-                console.log('Error logging in: ', error);
-                message.error(`Problem logging in: ${error.message}`);
+                self.authState = AuthState.Unauthenticated
+                console.error('Error logging in: ', error);
                 return false;
             }
         });
