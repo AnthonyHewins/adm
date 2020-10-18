@@ -19,7 +19,11 @@ describe('checkResponse', () => {
             expect(() => checkResponse({code: 'asdasd'})).toThrow('response is missing required field message')
         })
 
-    it('succeeds if message and code are present', () => {
-        expect(() => checkResponse({code: 'asd', message: 'asd'})).not.toThrow('')
+    it('errors out with response message if code is not success', () => {
+        expect(() => checkResponse({code: 'failure', message: 'asd'})).toThrow('asd')
+    })
+
+    it('succeeds if response code is success', () => {
+        expect(() => checkResponse({code: 'success', message: 'asd'})).not.toThrow()
     })
 })

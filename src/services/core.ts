@@ -1,27 +1,18 @@
-export type Api= {
+export type Api = {
     code: string;
     message: string;
-    data: any;
+    data?: any;
 }
 
-const apiCall = async (url: string, data: any): Api => {
+const apiCall = async (url: string, data: any): Promise<Api> => {
     try {
-        let resp;
-        if (data) {
-            resp = await getRequest(url, data)
-        } else {
-            resp = await postRequest(url, data)
-        }
-
+        const resp = data ? await postRequest(url, data) : await getRequest(url)
         checkResponse(resp)
         return resp
     } catch (e) {
         console.error(`Error hitting ${url} with payload ${data}:`)
         console.error(e)
-        return {
-            code: e.name,
-            message: e.message,
-        }
+        throw e
     }
 }
 
@@ -40,6 +31,10 @@ export const checkResponse = (resp: any) => {
     ['code', 'message'].forEach(field => {
         if (!(field in resp)) throw new Error(`response is missing required field ${field}`)
     })
+
+    if (resp.code !== 'success') {
+        throw new Error(resp.message)
+    }
 }
 
 export default apiCall
