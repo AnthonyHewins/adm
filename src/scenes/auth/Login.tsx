@@ -1,13 +1,12 @@
 import React from 'react';
-import { Link } from '@reach/router';
-import { AppError } from '../../api/core';
-import { login } from '../../api/user/login';
-import { JwtResponse } from '../../api/user/jwt';
 import { List, Message, Header, Container, Segment, Form, Loader } from 'semantic-ui-react';
+import { Link } from '@reach/router';
+
+import { AppError } from 'services/core';
+import { login } from 'services/user/login';
+import { JwtResponse } from 'services/user/jwt';
 
 export interface LoginProps {
-  endpoint?: string;
-
   email?: string;
   password?: string;
 

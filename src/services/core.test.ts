@@ -1,4 +1,4 @@
-import {apiCall, getRequest, postRequest, checkResponse} from 'services/core'
+import apiCall, { getRequest, postRequest, checkResponse} from 'services/core'
 
 describe('apiCall', () => {
 })

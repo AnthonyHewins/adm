@@ -1,6 +1,5 @@
-import { apiCall, AppError } from '../core';
-import { sendCredentials } from './core';
-import { JwtResponse } from './jwt';
+import { apiCall, AppError } from 'services/core';
+import { sendCredentials } from 'services/user/core';
 
 export function login(
   email: string,

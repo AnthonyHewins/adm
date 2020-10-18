@@ -1,9 +1,9 @@
 import React from 'react';
 import { List, Container, Segment, Form, Header, Message } from 'semantic-ui-react';
-import { confirmPwReset } from '../../api/user/confirmPwReset';
-import { AppAffirmative, AppError } from '../../api/core';
-import ErrorCheck from '../../components/ErrorCheck';
-import config from '../../config'
+
+import confirmPwReset from 'services/user/confirmPwReset';
+import ErrorCheck from 'components/ErrorCheck';
+import config from 'config'
 import { redirectTo } from '@reach/router'
 
 type ConfirmPasswordResetProps = {

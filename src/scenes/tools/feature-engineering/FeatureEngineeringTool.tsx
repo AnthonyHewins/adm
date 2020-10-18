@@ -1,14 +1,12 @@
 import React from 'react';
-import { Matrix } from '../../../api/tools/matrix';
-import { AppError } from '../../../api/core';
-import { featureEngineering, Modes } from '../../../api/tools/featureEngineering';
 import { Grid, Form, Message, Checkbox } from 'semantic-ui-react';
 
-import { EnterData } from '../../../components/EnterData';
-import { DataView } from '../../../components/DataView';
+import { Matrix } from 'services/tools/matrix';
+import Modes from 'services/enums';
+import { EnterData } from 'components/EnterData';
+import { DataView } from 'components/DataView';
 
-export interface FeatureEngineeringToolProps {
-  endpoint?: string;
+type FeatureEngineeringToolProps = {
   output?: number[][];
 
   mode?: Modes;
@@ -16,17 +14,17 @@ export interface FeatureEngineeringToolProps {
   message?: React.ReactNode;
 }
 
-interface FeData {
+type FeData = {
   imputedData?: number[][];
   err?: React.ReactNode;
 }
 
 const FeatureEngineeringTool: React.FC<FeatureEngineeringToolProps> = ({
-  endpoint = '/api/tools/feature-engineering',
-  data = undefined,
-  output = undefined,
+  endpoint,
+  data,
+  output,
   mode = Modes.zScore,
-  message = undefined,
+  message,
 }) => {
   const [currentMode, setCurrentMode] = React.useState(mode);
   const [feData, setFeData] = React.useState({ imputedData: output, err: message } as FeData);

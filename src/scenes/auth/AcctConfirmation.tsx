@@ -1,13 +1,8 @@
 import React from 'react';
 import { Header, Container } from 'semantic-ui-react';
-import { acctConfirmation } from '../../api/user/acctConfirmation';
-import { AppAffirmative, AppError } from '../../api/core';
+import acctConfirmation from 'services/user/acctConfirmation';
 
-type AcctConfirmationProps = {
-  endpoint: string;
-};
-
-const AcctConfirmation: React.FC<AcctConfirmationProps> = ({ endpoint }) => {
+const AcctConfirmation: React.FC = () => {
   const [componentState, setComponentState] = React.useState({
     loading: true,
     jsx: <></>,
@@ -50,7 +45,6 @@ const AcctConfirmation: React.FC<AcctConfirmationProps> = ({ endpoint }) => {
             break;
         }
       },
-      endpoint,
     );
   }
 
