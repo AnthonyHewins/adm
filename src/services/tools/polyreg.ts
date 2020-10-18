@@ -1,36 +1,24 @@
-import { apiCall, AppError } from '../core';
+import apiCall from 'services/core';
 import { Matrix } from './matrix';
+import config from 'config';
 
-interface Polynomial {
-  coef: number[];
-}
-
-export function polyreg(
-  matrix: Matrix,
-  maxDeg: number,
-  successCallback: (coef: number[]) => void,
-  errCallback: (err: AppError) => void,
-  decimalPlaces = 3,
-  endpoint = '/api/v1/poly-reg',
-): void {
+const polyreg = async (matrix: Matrix, maxDeg: number): number[] => {
   const data = { x: [], y: [], maxDeg: maxDeg };
   for (let i = 0; i < matrix.length; i++) {
     data.x.push(matrix.mat[i][0]);
     data.y.push(matrix.mat[i][1]);
   }
 
-  const req = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  };
+    const resp = await apiCall(config.polynomialRegression, data)
+
+  if (resp.data?.coef) {
+
+  }
 
   apiCall(
     fetch(endpoint, req),
     (r: Polynomial) => {
-      const epsilon = Math.pow(10, -decimalPlaces);
+      const epsilon = Math.pow(10, -5); // 5 decimal places rounding
 
       // Round away super small numbers
       for (let i = 0; i < r.coef.length; i++) {
@@ -49,3 +37,5 @@ export function polyreg(
     },
   );
 }
+
+export default polyreg

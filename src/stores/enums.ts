@@ -5,6 +5,11 @@ export enum LoadingState {
     Error = 'error',
 }
 
+export enum Modes {
+  meanNormalization = 'mean-normalization',
+  zScore = 'zscore',
+}
+
 export enum AuthState {
     Unauthenticated = 'unauthenticated',
     Authenticating = 'authenticating',
