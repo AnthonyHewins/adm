@@ -47,18 +47,6 @@ const ConfirmPasswordReset: React.FC<ConfirmPasswordResetProps> = ({
     confirmPwReset(
       currentToken,
       currentNewPassword,
-      (_: AppAffirmative) => {
-        setMsg(
-          <Message success>
-            <Message.Header>Success</Message.Header>
-            Redirecting you to the login page in a few seconds...
-          </Message>,
-        );
-
-        setTimeout(() => redirectTo('/login'), 3000);
-      },
-      (err: AppError) => setMsg(err.toMessage()),
-      config.passwordResetEndpoint,
     );
   };
 

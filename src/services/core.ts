@@ -4,7 +4,7 @@ export type Api = {
     data?: any;
 }
 
-const apiCall = async (url: string, data: any): Promise<Api> => {
+const apiCall = async (url: string, data?: any): Promise<Api> => {
     try {
         const resp = data ? await postRequest(url, data) : await getRequest(url)
         checkResponse(resp)

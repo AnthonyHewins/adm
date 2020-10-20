@@ -1,9 +1,8 @@
 import React from 'react';
-import { AppError, AppAffirmative } from '../../api/core';
-import { pwReset } from '../../api/user/pwReset';
+import { pwReset } from 'services/user/pwReset';
 import { Header, Container, Segment, Form, Loader, Dimmer } from 'semantic-ui-react';
 import { redirectTo } from '@reach/router';
-import config from '../../config'
+import config from 'config'
 
 type PasswordRecoveryProps = {
   email?: string;
@@ -25,10 +24,7 @@ const PasswordRecovery: React.FC<PasswordRecoveryProps> = ({ email = '', message
     );
 
     pwReset(
-      currentEmail,
-      (_: AppAffirmative) => redirectTo('/confirm-password-reset'),
-      (err: AppError) => setResetState(err.toMessage()),
-      config.passwordRecoveryEndpoint,
+      currentEmail
     );
   };
 

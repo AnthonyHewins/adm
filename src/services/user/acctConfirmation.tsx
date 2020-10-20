@@ -3,7 +3,7 @@ import config from 'config';
 
 const acctConfirmation = async (
   token: string,
-): boolean => {
+) => {
   await apiCall(`${config.acctConfirmation}?token=${token}`)
 }
 

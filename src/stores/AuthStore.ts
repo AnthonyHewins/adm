@@ -8,7 +8,9 @@ const AuthStore = types
         token: types.maybeNull(types.string),
     })
     .actions(self => {
-        const login = flow(function* (userPayload: AwsUser) {
+        const login = flow(function* () {
+            /*
+             *
             self.authState = AuthState.Authenticating
             try {
                 createUser(userPayload);
@@ -20,6 +22,7 @@ const AuthStore = types
                 console.error('Error logging in: ', error);
                 return false;
             }
+             */
         });
 
         return {

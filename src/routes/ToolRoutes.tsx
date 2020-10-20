@@ -13,36 +13,36 @@ import FeatureEngineeringAbout from 'scenes/tools/feature-engineering/FeatureEng
 
 const FeatureEngineeringRoute = (props: RouteComponentProps) => (
     <ToolPage
-    name="Feature Engineering"
-    menuItems={['Tool', 'API', 'How it works']}
-    pages={[
-        <FeatureEngineeringTool key="tool" />,
-        <FeatureEngineeringApi key="api" />,
-        <FeatureEngineeringAbout key="about" />,
-    ]}
+        name="Feature Engineering"
+        menuItems={['Tool', 'API', 'How it works']}
+        pages={[
+            <FeatureEngineeringTool key="tool" />,
+            <FeatureEngineeringApi key="api" />,
+            <FeatureEngineeringAbout key="about" />,
+        ]}
     />
 )
 
 const PolynomialRegressionRoute = (props: RouteComponentProps) => (
     <ToolPage
-name="Polynomial Regression"
-menuItems={['Tool', 'API', 'How it works']}
-pages={[
-    <PolynomialRegressionTool key="tool" />,
-    <PolynomialRegressionApi key="api" />,
-    <PolynomialRegressionAbout key="about" />,
-]}
-/>
+        name="Polynomial Regression"
+        menuItems={['Tool', 'API', 'How it works']}
+        pages={[
+            <PolynomialRegressionTool key="tool" />,
+            <PolynomialRegressionApi key="api" />,
+            <PolynomialRegressionAbout key="about" />,
+        ]}
+    />
 )
 
-const ToolsRoute = (props: RouteComponentProps) => <Tools />
+const ToolsIndex = (props: any) => <Tools />
 
-const ToolRoutes = () => {
+const ToolRoutes = (p: RouteComponentProps) => {
     return (
         <>
-            <FeatureEngineeringRoute path="/tools/feature-engineering"/>
-            <PolynomialRegressionRoute path="/tools/poly-reg"/>
-            <ToolsRoute path='/tools'/>
+            <ToolsIndex path='/' default />
+            <FeatureEngineeringRoute path="feature-engineering"/>
+            <PolynomialRegressionRoute path="poly-reg"/>
         </>
     )
 }

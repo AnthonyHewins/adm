@@ -1,8 +1,8 @@
 import apiCall from 'services/core';
-import { Matrix } from './matrix';
+import Matrix from './matrix';
 import config from 'config';
 
-const polyreg = async (matrix: Matrix, maxDeg: number): number[] => {
+const polyreg = async (matrix: Matrix, maxDeg: number) => {
   const data = { x: [], y: [], maxDeg: maxDeg };
   for (let i = 0; i < matrix.length; i++) {
     data.x.push(matrix.mat[i][0]);
@@ -11,6 +11,8 @@ const polyreg = async (matrix: Matrix, maxDeg: number): number[] => {
 
     const resp = await apiCall(config.polynomialRegression, data)
 
+  /*
+   *
   if (resp.data?.coef) {
 
   }
@@ -36,6 +38,7 @@ const polyreg = async (matrix: Matrix, maxDeg: number): number[] => {
       errCallback(new AppError(e.code, e.message));
     },
   );
+   */
 }
 
 export default polyreg

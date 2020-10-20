@@ -2,11 +2,9 @@ import React from 'react';
 import { List, Message, Header, Container, Segment, Form, Loader } from 'semantic-ui-react';
 import { Link } from '@reach/router';
 
-import { AppError } from 'services/core';
-import { login } from 'services/user/login';
-import { JwtResponse } from 'services/user/jwt';
+import login from 'services/user/login';
 
-export interface LoginProps {
+type LoginProps = {
   email?: string;
   password?: string;
 
@@ -20,7 +18,6 @@ const Login: React.FC<LoginProps> = ({
   password = '',
   message = undefined,
   setLoggedIn = (_: boolean) => null,
-  endpoint = '/api/v1/auth/login',
 }) => {
   const [currentEmail, setCurrentEmail] = React.useState(email);
   const [currentPassword, setCurrentPassword] = React.useState(password);
@@ -36,21 +33,6 @@ const Login: React.FC<LoginProps> = ({
     login(
       currentEmail,
       currentPassword,
-      (jwt: JwtResponse) => {
-        console.log('Logged in, expiring at ' + jwt.expire);
-        sessionStorage.setItem('jwt-token', jwt.token);
-        sessionStorage.setItem('jwt-expiration', jwt.expire);
-
-        setMsg(
-          <Message success>
-            <Message.Header>Successfully logged in.</Message.Header>
-            Got JWT token at {new Date().toUTCString()}
-          </Message>,
-        );
-        setLoggedIn(true);
-      },
-      (err: AppError) => setMsg(err.toMessage()),
-      endpoint,
     );
   };
 

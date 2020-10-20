@@ -4,26 +4,28 @@ import Home from 'scenes/Home';
 import Contact from 'scenes/Contact';
 import Anthony from 'scenes/Anthony';
 
-import {Router, RouteComponentProps, Link } from '@reach/router';
+import {Router} from '@reach/router';
 
 import Fund from 'scenes/fund/Fund';
 
 import ToolRoutes from 'routes/ToolRoutes';
 import AuthRoutes from 'routes/AuthRoutes';
 
-const HomeRoute = (p: RouteComponentProps) => <Home />
-const ContactCEO = (p: RouteComponentProps) => <Anthony />
-const GeneralContact = (p: RouteComponentProps) => <Contact />
+const HomeRoute = (p: any) => <Home />
+const ContactCEO = (p: any) => <Anthony />
+const GeneralContact = (p: any) => <Contact />
 
 const RouterSwitch: React.FC = () => {
     return (
-        <>
-            <ContactCEO path='/contact/anthony'/>
-            <GeneralContact path='/contact'/>
-            <ToolRoutes />
-            <AuthRoutes />
-            <HomeRoute path='/'/>
-        </>
+        <Router>
+            <HomeRoute path='/'>
+                <GeneralContact path='contact'>
+                    <ContactCEO path='anthony'/>
+                </GeneralContact>
+                <ToolRoutes path='tools'/>
+                <AuthRoutes path='auth'/>
+            </HomeRoute>
+        </Router>
     )
 }
 

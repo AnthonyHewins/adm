@@ -5,13 +5,10 @@ import { Popup, Button, Message, Grid } from 'semantic-ui-react';
 import { EnterData } from 'components/EnterData';
 import { Graph } from 'components/Graph';
 import { PolynomialKatex } from './PolynomialKatex';
-import { AppError } from 'services/core';
 import polyreg from 'services/tools/polyreg';
-import { Matrix } from 'services/tools/matrix';
+import Matrix from 'services/tools/matrix';
 
 type PolynomialRegressionToolProps = {
-  endpoint?: string;
-
   degree?: number;
   maxDeg?: number;
   decimalPlaces?: number;
@@ -29,7 +26,6 @@ interface Regression {
 }
 
 const PolynomialRegressionTool: React.FC<PolynomialRegressionToolProps> = ({
-  endpoint = '/api/tools/poly-reg',
   degree = 2,
   maxDeg = 5,
   decimalPlaces = 3,
@@ -82,9 +78,7 @@ const PolynomialRegressionTool: React.FC<PolynomialRegressionToolProps> = ({
         coef: coef,
       } as Regression);
 
-    const onError = (error: AppError) => setPolyData({ err: error.toMessage() } as Regression);
-
-    polyreg(m, deg, onSuccess, onError, decimalPlaces, endpoint);
+    polyreg(m, deg);
   };
 
   return (

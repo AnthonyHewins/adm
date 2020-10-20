@@ -1,8 +1,9 @@
 import React from 'react';
 import { Grid, Form, Message, Checkbox } from 'semantic-ui-react';
 
-import { Matrix } from 'services/tools/matrix';
-import Modes from 'services/enums';
+import Matrix from 'services/tools/matrix';
+import featureEngineering from 'services/tools/featureEngineering';
+import {Modes} from 'stores/enums';
 import { EnterData } from 'components/EnterData';
 import { DataView } from 'components/DataView';
 
@@ -20,7 +21,6 @@ type FeData = {
 }
 
 const FeatureEngineeringTool: React.FC<FeatureEngineeringToolProps> = ({
-  endpoint,
   data,
   output,
   mode = Modes.zScore,
@@ -45,9 +45,6 @@ const FeatureEngineeringTool: React.FC<FeatureEngineeringToolProps> = ({
     featureEngineering(
       m,
       currentMode,
-      (apiResult: number[][]) => setFeData({ imputedData: apiResult } as FeData),
-      (err: AppError) => setFeData({ err: err.toMessage() } as FeData),
-      endpoint,
     );
   };
 

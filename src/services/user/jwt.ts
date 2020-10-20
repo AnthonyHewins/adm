@@ -1,11 +1,12 @@
-import { apiCall, AppError } from '../core';
+import apiCall from '../core';
+import config from 'config';
 
 export type JwtResponse = {
   token: string;
   expire: string;
 }
 
-function fetchJwt(endpoint: string, errCallback = (e: AppError) => console.error(e)): string {
+const fetchJwt = async (): Promise<string> => {
   const expiration = sessionStorage.getItem('jwt-expiration');
 
   if (expiration === null) {
@@ -32,35 +33,20 @@ function fetchJwt(endpoint: string, errCallback = (e: AppError) => console.error
   }
 
   console.log(`token expired at ${new Date(unixTimestamp)}, fetching new one...`);
-
-  let newToken: string;
-  refreshToken(
-    token,
-    (jwt: JwtResponse) => {
-      console.log(`got new token expiring at ${jwt.expire}.`);
-      sessionStorage.setItem('jwt-token', jwt.token);
-      sessionStorage.setItem('jwt-expiration', jwt.expire);
-    },
-    errCallback,
-    endpoint,
-  );
-  return newToken;
+  const jwt = await refreshToken(token)
+  console.log(`got new token expiring at ${jwt.expire}.`);
+  sessionStorage.setItem('jwt-token', jwt.token);
+  sessionStorage.setItem('jwt-expiration', jwt.expire);
+  return jwt.token;
 }
 
-async function refreshToken(
-  token: string,
-  onSuccess: (jwt: JwtResponse) => void,
-  onError: (e: AppError) => void,
-  endpoint = '/api/v1/refresh_token',
-) {
-  const req = {
+async function refreshToken(token: string): Promise<{token: string, expire: string}> {
+  return await fetch(config.refreshToken, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
-    },
-  };
-
-  apiCall(fetch(endpoint, req), onSuccess, onError);
+    }
+  }).then(r => r.json())
 }
 
 export default fetchJwt

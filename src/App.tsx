@@ -1,28 +1,25 @@
 import React from 'react';
-import { Router} from '@reach/router';
 
-import fetchJwt from './api/user/jwt';
+import MenuBar from 'scenes/MenuBar';
+import Footer from 'scenes/Footer';
+import RouterSwitch from 'routes/RouterSwitch'
 
-import MenuBar from './scenes/MenuBar';
-import Footer from './scenes/Footer';
-import RouterSwitch from './routes/RouterSwitch'
-
-import './App.css';
+import 'App.css';
 
 type AppProps = {
-  refreshToken?: string
+    refreshToken?: string
 }
 
 const App: React.FC<AppProps> = ({refreshToken}) => {
-  const [loggedIn, setLoggedIn] = React.useState(fetchJwt(refreshToken) !== null);
+    const [loggedIn, setLoggedIn] = React.useState(null);
 
-  return (
-    <Router>
-      <MenuBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-      <RouterSwitch />
-      <Footer />
-    </Router>
-  );
+    return (
+        <>
+            <MenuBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+            <RouterSwitch />
+            <Footer />
+        </>
+    );
 }
 
 export default App;

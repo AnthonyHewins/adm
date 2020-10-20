@@ -7,21 +7,20 @@ import AcctConfirmation from 'scenes/auth/AcctConfirmation';
 import PasswordRecovery from 'scenes/auth/PasswordRecovery';
 import ConfirmPasswordReset from 'scenes/auth/ConfirmPasswordReset';
 
-const acctConfirmation = ""
 const RouteLogin = (p: RouteComponentProps) => <Login setLoggedIn={(currentLoginStatus: boolean) => {return;}} />
 const RouteRegister = (p: RouteComponentProps) => <Register />
 const RouteConfirmPasswordReset = (p: RouteComponentProps) => <ConfirmPasswordReset />
 const RoutePasswordRecovery = (p: RouteComponentProps) => <PasswordRecovery />
-const RouteAcctConfirmation = (p: RouteComponentProps) =>  <AcctConfirmation endpoint={acctConfirmation} />
+const RouteAcctConfirmation = (p: RouteComponentProps) =>  <AcctConfirmation />
 
-const AuthRoutes = () => {
+const AuthRoutes = (p: any) => {
     return (
         <>
-            <RouteAcctConfirmation path="/confirm/:token" />
-            <RouteLogin path="/login"/>
-            <RouteRegister path="/register"/>
-            <RouteConfirmPasswordReset path="/confirm-password-reset"/>
-            <RoutePasswordRecovery path="/reset-password"/>
+            <RouteAcctConfirmation path="confirm/:token" />
+            <RouteLogin path="login"/>
+            <RouteRegister path="register"/>
+            <RouteConfirmPasswordReset path="confirm-password-reset"/>
+            <RoutePasswordRecovery path="reset-password"/>
         </>
     )
 }

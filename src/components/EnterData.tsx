@@ -1,6 +1,6 @@
 import React from 'react';
 import { Popup, Segment, Icon, Input, Grid, Button } from 'semantic-ui-react';
-import { Matrix } from '../api/tools/matrix';
+import Matrix from 'services/tools/matrix';
 
 interface IncrementDecrementProps {
   title: string;

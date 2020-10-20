@@ -1,4 +1,4 @@
-export class Matrix {
+export default class Matrix {
   public readonly dim: number;
   public readonly mat: number[][];
   public readonly length: number;

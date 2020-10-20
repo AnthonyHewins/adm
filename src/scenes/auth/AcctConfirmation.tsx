@@ -10,41 +10,7 @@ const AcctConfirmation: React.FC = () => {
 
   if (componentState.loading) {
     acctConfirmation(
-        //TODO
       "CHANGE ME",
-      (x: AppAffirmative) =>
-        setComponentState({
-          jsx: (
-            <Container>
-              {x.toMessage()}
-              <p>Visit the login page to log in.</p>
-            </Container>
-          ),
-          loading: false,
-        }),
-      (e: AppError) => {
-        switch (e.code) {
-          case 'late':
-          case 'server':
-            setComponentState({
-              jsx: <Container>{e.toMessage()}</Container>,
-              loading: false,
-            });
-            break;
-          default:
-            console.log(e);
-            // TODO this might be beter handled as a 404 history push
-            setComponentState({
-              jsx: (
-                <Container>
-                  <Header>404</Header>
-                </Container>
-              ),
-              loading: false,
-            });
-            break;
-        }
-      },
     );
   }
 

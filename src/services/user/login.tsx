@@ -1,12 +1,16 @@
-import { apiCall, AppError } from 'services/core';
-import { sendCredentials } from 'services/user/core';
+import apiCall from 'services/core';
+import config from 'config';
 
-export function login(
-  email: string,
-  password: string,
-  onSuccess: (jwt: JwtResponse) => void,
-  onError: (e: AppError) => void,
-  endpoint = '/api/v1/auth/login',
-) {
-  apiCall(sendCredentials(email, password, endpoint), (r: JwtResponse) => onSuccess(r), onError);
+const login = async (email: string,  password: string): Promise<string> => {
+    const resp = await apiCall(config.login, {
+        email: email, password: password
+    })
+
+    if (resp?.data?.token) {
+        return resp.data.token
+    }
+
+    throw new Error('failed getting token')
 }
+
+export default login

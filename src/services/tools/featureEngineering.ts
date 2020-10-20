@@ -1,4 +1,5 @@
-import { Matrix } from './matrix';
+import Matrix from './matrix';
+import {Modes} from 'stores/enums'
 import apiCall, {Api} from '../core';
 import config from 'config';
 

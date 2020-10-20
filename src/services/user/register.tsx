@@ -1,16 +1,11 @@
-import { apiCall, ApiAffirmative, AppAffirmative, AppError } from '../core';
-import { sendCredentials } from './core';
+import apiCall from '../core';
+import config from 'config';
 
 export function register(
   email: string,
   password: string,
-  onSuccess: (s: ApiAffirmative) => void,
-  onError: (e: AppError) => void,
-  endpoint = '/api/v1/register',
 ) {
-  apiCall(
-    sendCredentials(email, password, endpoint),
-    (resp: ApiAffirmative) => onSuccess(new AppAffirmative(resp.message)),
-    onError,
-  );
+    const resp = apiCall(config.registration, {
+        email: email, password: password
+    })
 }
